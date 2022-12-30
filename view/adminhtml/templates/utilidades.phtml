@@ -1,0 +1,524 @@
+<script type="text/javascript">
+    require([
+        'jquery',
+        'popper',
+        'domReady!',
+        'jquery.dataTables',
+        'PNotify',
+        'utilidadesJs',
+        'IntroJs',
+        'IntroJsUtilidades'
+        ], function($, Popper) {
+            "use strict";
+            window.Popper = Popper;
+        });
+</script>
+<div id="CEX">
+    <div id="utilidades" class="CEX-container CEX-panel py-5 px-3 container pr-sm-5">
+        <div class="row">
+            <div class="col-12 col-md-12 col-lg-12">
+                <div class="row mb-1 d-flex align-items-center">
+                    <!--Inicio Cabecera menu opciones-->
+                    <div class="col-6 col-sm-6 my-auto">
+                        <h2 class="CEX-text-blue"><?php echo __('Utilidades');?></h2>
+                        <button id="ejecutarUpdateButton" class="d-none" name="ejecutarUpdateButton"
+                            onclick="ejecutarUpdate();">
+                            <?php echo __('Ejecutar actualizaciones');?>
+                        </button>
+                    </div>
+                    <div class="col-6 col-sm-6 text-right my-auto">
+                        <img class="img-fluid w-50"
+                            src="<?php echo $block->getViewFileUrl('CorreosExpress_RegistroDeEnvios::images/correosexpress.png');?>">
+                    </div>
+                </div>
+                <div class="row mb-5 d-flex align-items- center">
+                    <div id="Manuales" class="col-12 col-sm-12 my-auto">
+                        <div id="grabar_enviosManual" class="CEX-manual">
+                            <fieldset class="rounded-2 CEX-background-white border CEX-border-blue px-3">
+                                <legend
+                                    class="p-2 ml-2 CEX-background-blue CEX-text-white rounded-2 w-auto border-0 mb-3">
+                                    <?php echo __('Manual interactivo Grabación masiva');?>
+                                </legend>
+                                <div id="contenidoManual" class="form-group mb-3 w-auto d-flex">
+                                    <input id="toggleGrabacionIntroJS" type="checkbox" class="form-control mt-1 my-auto"
+                                        onchange="checkGrabacionIntroJS();">
+                                    <label for="toggleGrabacionIntroJS"
+                                        class="m-0 my-auto mr-5 CEX-text-blue"><?php echo __('Activar / Desactivar');?></label>
+                                    <button id="manualInteractivoGrabacion"
+                                        class="CEX-btn btn-large CEX-button-info my-auto d-none"
+                                        href="javascript:void(0)" onclick="introjsTourGrabacion();">
+                                        <?php echo __('Manual interactivo');?>
+                                    </button>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div id="cex_generar_etiquetasManual" class="CEX-manual d-none">
+                            <fieldset class="rounded-2 CEX-background-white border CEX-border-blue px-3">
+                                <legend
+                                    class="p-2 ml-2 CEX-background-blue CEX-text-white rounded-2 w-auto border-0 mb-3">
+                                    <?php echo __('Manual interactivo Reimpresión');?></legend>
+                                <div id="contenidoManual" class="form-group mb-3 w-auto d-flex">
+                                    <input id="toggleReimpresionIntroJS" type="checkbox"
+                                        onchange="checkReimpresionIntroJS();" class="form-control mt-1 my-auto">
+                                    <label for="toggleReimpresionIntroJS"
+                                        class="m-0 my-auto mr-5 CEX-text-blue"><?php echo __('Activar / Desactivar');?></label>
+                                    <button id="manualInteractivoReimpresion"
+                                        class="CEX-btn btn-large CEX-button-info my-auto d-none"
+                                        href="javascript:void(0)" onclick="introjsTourReimpresion();">
+                                        <?php echo __('Manual interactivo');?>
+                                    </button>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div id="cex_generar_resumenManual" class="CEX-manual d-none">
+                            <fieldset class="rounded-2 CEX-background-white border CEX-border-blue px-3">
+                                <legend
+                                    class="p-2 ml-2 CEX-background-blue CEX-text-white rounded-2 w-auto border-0 mb-3">
+                                    <?php echo __('Manual interactivo Resumen pedidos');?></legend>
+                                <div id="contenidoManual" class="form-group mb-3 w-auto d-flex">
+                                    <input id="toggleResumenIntroJS" type="checkbox" onchange="checkResumenIntroJS();"
+                                        class="form-control mt-1 my-auto">
+                                    <label for="toggleResumenIntroJS"
+                                        class="m-0 my-auto mr-5 CEX-text-blue"><?php echo __('Activar / Desactivar');?></label>
+                                    <button id="manualInteractivoResumen"
+                                        class="CEX-btn btn-large CEX-button-info my-auto d-none"
+                                        href="javascript:void(0)" onclick="introjsTourResumen();">
+                                        <?php echo __('Manual interactivo');?>
+                                    </button>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <!--Fin cabecera menu opciones-->
+                </div>
+                <div class="mt-5">
+                    <ul id="CEX-tabs-menu" class="nav nav-tabs border-0" role="tablist">
+                        <li id="introjsGrabacionMasiva" class="CEX-mi-nav-item">
+                            <a class="nav-link px-2 CEX-text-blue CEX-mi-border" data-toggle="tab" role="tab" href="#grabar_envios"
+                                onclick="activarManual('grabar_envios',1);" aria-controls="grabar_envios"
+                                aria-selected="true">
+                                <?php echo __("Grabación masiva de pedidos");?>
+                            </a>
+                        </li>
+                        <li id="introjsReimpresion" class="CEX-mi-nav-item">
+                            <a class="nav-link px-2 CEX-text-blue CEX-mi-border" data-toggle="tab" role="tab" href="#cex_generar_etiquetas"
+                                onclick="activarManual('cex_generar_etiquetas',2);"
+                                aria-controls="cex_generar_etiquetas" aria-selected="false">
+                                <?php echo __("Reimpresión de etiquetas");?>
+                            </a>
+                        </li>
+                        <li id="introjsResumen" class="CEX-mi-nav-item">
+                            <a class="nav-link px-2 CEX-text-blue CEX-mi-border" data-toggle="tab" role="tab" href="#cex_generar_resumen"
+                                onclick="activarManual('cex_generar_resumen',3);" aria-controls="cex_generar_resumen"
+                                aria-selected="false">
+                                <?php echo __("Generación de resumen de pedidos");?>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="CEX-tab-content"
+                    class="tab-content border CEX-border-blue CEX-background-white p-md-3 rounded-md-top-left-0 rounded-2 d-block"
+                    role="tablist">
+                    <div id="grabar_envios" class="tab-pane show active" role="tabpanel"
+                        aria-labelledby="tab-grabar_envios">
+                        <div class="tab-header" role="tab" id="heading-grabar_envios">
+                            <a data-toggle="collapse" href="#collapse-grabar_envios"
+                                aria-expanded="true" aria-controls="collapse-grabar_envios"
+                                onclick="activarManual('grabar_envios',1);">
+                                <?php echo __("Grabación masiva de pedidos");?>
+                            </a>
+                        </div>
+                        <div id="collapse-grabar_envios" class="collapse show" data-parent="#CEX-tab-content" role="tabpanel" aria-labelledby="heading-grabar_envios" eq="0">
+                            <div class="b-body p-0 container-fluid pb-3">
+                                <div id="fila1" class="row m-0">
+                                    <div class="col-12 col-xs-12 col-md-12 col-lg-12">
+                                        <h2 class="text-center mb-5">
+                                            <?php echo __('Buscador de Pedidos');?>
+                                        </h2>
+                                    </div>
+                                    <div class="col-6 col-sm-6 col-md-3 col-lg-3 form-group offset-md-3">
+                                        <div class="field date">
+                                            <label for="fecha_desde"><?php echo __('Desde:');?></label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control d-block input-text" id="fecha_desde" name="fecha_desde" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-sm-6 col-md-3 col-lg-3 form-group offset-md-0">
+                                        <label for="fecha_hasta"><?php echo __('Hasta:');?></label>
+                                        <div class="input-group date">
+                                            <input type="text" id="fecha_hasta" class="form-control d-block input-text"/>
+
+                                        </div>
+                                    </div>
+                                   <?php /*<div class="col-12 col-sm-6 col-md-3 col-lg-3 form-group">
+                                        <label for="estados"><?php echo __('Estados:');?></label>
+                                        <select id="estados" class="form-control"></select>
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-md-3 col-lg-3 form-group">
+                                        <label
+                                            for="transportistas"><?php echo __('Transportistas');?></label>
+                                        <select id="transportistas" class="form-control"></select>
+                                    </div>*/?>
+                                    <div class="col-12 col-xs-12 col-md-12 col-lg-12 text-center form-group mt-5">
+                                        <button id="fila2" class="CEX-btn CEX-button-yellow"
+                                            onclick="obtenerPedidosBusqueda(event);">
+                                            <?php echo __("Buscar Envíos");?>
+                                        </button>
+                                    </div>
+
+                                </div>
+
+                                <div id="contenedor_respuesta_buscador_pedidos" class="row mx-0 mt-3 d-none">
+                                    <div class="col-12 col-xs-12 col-md-12 col-lg-12">
+                                        <div id="respuesta_buscador_pedidos" class=""></div>
+                                    </div>
+                                </div>
+                                <div id="contenedor_etiquetas_grabacion" class="d-none">
+                                    <div class="row">
+                                        <div id="introjsSeleccionarTodos1"
+                                            class="col-12 col-xs-12 col-md-3 col-lg-3 form-group text-left d-flex">
+                                            <img
+                                                src="<?php echo $block->getViewFileUrl('CorreosExpress_RegistroDeEnvios::images/arrow_ltr.png');?>" />
+                                            <input type="checkbox" id="todosGa" name="todosGa"
+                                                class="form-control mt-1 my-auto marcarTodos before"
+                                                data-parent="grabar_envios">
+                                            <label class="my-auto"
+                                                for="todosGa"><?php echo __("Seleccionar todos");?></label>
+                                        </div>
+                                        <div class="col-12 col-xs-12 col-md-9 col-lg-9 text-right">
+                                            <p>
+                                                <small>
+                                                    <?php echo __("**Los pedidos que no se pueden seleccionar ya tienen número de envío, solo se podrán reimprimir las etiquetas. (Ya se encuentran grabados)");?>
+                                                </small>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div id="introjsTipoEtiqueta" class="col-4 col-xs-4">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <label for="select_tipo_etiqueta2" class="input-group-text">
+                                                        <?php echo __("Tipo de etiqueta");?>
+                                                    </label>
+                                                </div>
+                                                <select id="select_tipo_etiqueta2" class="form-control rounded-left-0 rounded-right m-0"
+                                                    onchange="pintarSelectPosicion()">
+                                                    <option value="1"><?php echo __("Adhesiva");?>
+                                                    </option>
+                                                    <option value="2"><?php echo __("Medio Folio");?>
+                                                    </option>
+                                                    <option value="3"><?php echo __("Térmica");?>
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div id="introjsPosicionEtiqueta" class="col-4 col-xs-4">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <label for="posicion_etiqueta_masiva" class="input-group-text">
+                                                        <?php echo __("Posición de la etiqueta");?>
+                                                    </label>
+                                                </div>
+                                                <select id="posicion_etiqueta_masiva" class="form-control rounded-left-0 rounded-right m-0">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-5">
+                                        <div class="col-12 col-xs-12 col-sm-12 col-lg-12 form-group text-center">
+                                            <button  id="introjsGenerarGrabacionEnvio" class="CEX-btn CEX-button-success" onclick="generarNumerosEnvio(event);">
+                                                <?php echo __("Generar Envíos");?>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div id="contenedor_errores" class="d-none">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="cex_generar_etiquetas" class="tab-pane fade" role="tabpanel"
+                        aria-labelledby="tab-cex_generar_etiquetas">
+                        <div class="tab-header" role="tab" id="heading-cex_generar_etiquetas">
+                            <a class="collapsed" data-toggle="collapse" href="#collapse-cex_generar_etiquetas"
+                                aria-expanded="false"
+                                aria-controls="collapse-cex_generar_etiquetas"
+                                onclick="activarManual('cex_generar_etiquetas',2);">
+                                <?php echo __("Reimpresión de etiquetas");?>
+                            </a>
+                        </div>
+                        <div id="collapse-cex_generar_etiquetas" class="collapse" role="tabpanel"
+                            aria-labelledby="heading-cex_generar_etiquetas" data-parent="#CEX-tab-content" eq="1">
+                            <div class="b-body container-fluid pb-3">
+                                <div id="fecha_reimpresion" class="row text-center m-0">
+                                    <div class="col-12 col-xs-12 col-md-12 col-lg-12">
+                                        <h2><?php echo __("Reimpresión de etiquetas");?></h2>
+                                    </div>
+                                    <div class="col-12 col-xs-12 col-md-6 col-lg-6 offset-md-3 form-group">
+                                        <label for="selector_fecha"><?php echo __('Selecciona la fecha de la que quieres ver los pedidos');?></label>
+                                        <div class="input-group date">
+                                            <input type="text" id="selector_fecha" class="form-control d-block input-text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-xs-12 col-md-12 col-lg-12 form-group">
+                                        <button type="button" class="CEX-btn CEX-button-yellow"
+                                            onclick="buscarPedido(event);"><?php echo __("Buscar");?></button>
+                                    </div>
+                                </div>
+                                <div id="contenedor_pedidos" class="row mx-0 mt-3 d-none">
+                                    <div class="col-12 col-xs-12 col-md-12 col-lg-12">
+                                        <div id="contenedor_pedidos_reimpresion"></div>
+                                    </div>
+                                </div>
+                                <div id="contenedor_etiquetas_reimpresion" class="d-none">
+                                    <div class="row">
+                                        <div id="introjsSeleccionarTodos2"
+                                            class="col-12 col-xs-12 col-md-3 col-lg-3 form-group d-flex">
+                                            <img
+                                                src="<?php echo $block->getViewFileUrl('CorreosExpress_RegistroDeEnvios::images/arrow_ltr.png');?>" />
+                                            <input type="checkbox" id="todosRe" name="todosRe"
+                                            class="form-control mt-1 my-auto marcarTodos before"
+                                                data-parent="cex_generar_etiquetas">
+                                            <label for="todosRe"
+                                                class="my-auto"><?php echo __("Seleccionar todos");?></label>
+                                        </div>
+                                        <div class="col-12 col-xs-12 col-md-9 col-lg-9 text-center">
+                                            <p>
+                                                <?php echo __("(*Los pedidos que no tengan la opción de reimprimir la etiqueta ya han pasado el periodo de validez de 7 días desde su grabación.)");?>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-4 col-xs-4 col-md-4 col-lg-4 ">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <label for="select_tipo_etiqueta" class="input-group-text">
+                                                        <?php echo __("Tipo de etiqueta");?>
+                                                    </label>
+                                                </div>
+                                                <select id="select_tipo_etiqueta" class="form-control rounded-left-0 rounded-right m-0"
+                                                    onchange="pintarSelectPosicion2()">
+                                                    <option value="1"><?php echo __("Adhesiva");?>
+                                                    </option>
+                                                    <option value="2"><?php echo __("Medio Folio");?>
+                                                    </option>
+                                                    <option value="3">
+                                                        <?php echo __("Térmica");?>
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div id="introjsPosicionEtiqueta2" class="col-4 col-xs-4 col-md-4 col-lg-4">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <label for="posicion_etiquetas" class="input-group-text">
+                                                        <?php echo __("Posición de la etiqueta");?>
+                                                    </label>
+                                                </div>
+                                                <select id="posicion_etiquetas" class="form-control rounded-left-0 rounded-right m-0">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-5">
+                                        <div class="col-12 col-xs-12 col-md-12 col-lg-12 form-group text-center">
+                                            <button type="button" id="grabar_etiqueta"
+                                                class="CEX-btn CEX-button-success" onclick="generarEtiquetasReimpresion(event);">
+                                                <?php echo __("Imprimir Etiquetas");?>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div id="contenedor_errores_reimpresion" class="d-none">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="cex_generar_resumen" class="tab-pane fade" role="tabpanel"
+                        aria-labelledby="tab-cex_generar_resumen">
+                        <div class="tab-header" role="tab" id="heading-cex_generar_resumen">
+                            <a class="collapsed" data-toggle="collapse" href="#collapse-cex_generar_resumen"
+                                aria-expanded="false"
+                                aria-controls="collapse-cex_generar_resumen"
+                                onclick="activarManual('cex_generar_resumen',3);">
+                                <?php echo __("Generación de resumen de pedidos");?>
+                            </a>
+                        </div>
+                        <div id="collapse-cex_generar_resumen" class="collapse" role="tabpanel"
+                            aria-labelledby="heading-cex_generar_resumen" data-parent="#CEX-tab-content" eq="2">
+                            <div class="b-body container-fluid pb-3">
+                                <div id="fechas_resumen" class="row text-center m-0">
+                                    <div class="col-12 col-xs-12 col-md-12 col-lg-12">
+                                        <h2><?php echo __("Generación de resumen de pedidos");?>
+                                        </h2>
+                                    </div>
+                                    <div class="col-12 col-xs-12 col-md-6 col-lg-6 offset-md-3 form-group text-center">
+                                        <label for="introjsFechaResumen"><?php echo __("Selecciona la fecha de la que quieres imprimir el resumen de pedidos");?></label>
+                                        <input type="text" id="introjsFechaResumen" class="form-control d-block input-text">
+                                    </div>
+                                    <div class="col-12 col-xs-12 col-md-12 col-lg-12 form-group">
+                                        <button type="button" class="CEX-btn CEX-button-yellow"
+                                            onclick="buscarResumen(event);">
+                                            <?php echo __("Buscar");?>
+                                        </button>
+                                        <p>
+                                            <small>
+                                                <?php echo __("(* La fecha seleccionada será la fecha para la que se grabaron los pedidos)");?>
+                                            </small>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div id="contenedor_resumen" class="row mx-0 mt-3 d-none">
+                                    <div class="col-12 col-xs-12 col-md-12 col-lg-12">
+                                        <div id="contenedor_resumen_pedidos"></div>
+                                    </div>
+                                </div>
+                                <div id="opcionesResumen" class="row d-none mt-5">
+                                    <div id="marcarResumen" class="col-6 col-xs-6 col-md-3 col-lg-3 form-group d-flex">
+                                        <img
+                                            src="<?php echo $block->getViewFileUrl('CorreosExpress_RegistroDeEnvios::images/arrow_ltr.png');?>" />
+                                        <input type="checkbox" id="todosGr" name="todosGr" class="form-control my-auto marcarTodos before"
+                                            data-parent="cex_generar_resumen">
+                                        <label class="my-auto"
+                                            for="todosGr"><?php echo __("Seleccionar todos");?></label>
+                                    </div>
+                                    <div id="boton_resumen" class="col-6 col-xs-6 col-md-6 col-lg-6 text-center">
+                                        <button class="CEX-btn CEX-button-success" onclick="imprimirResumen(event);">
+                                            <?php echo __("Imprimir resumen");?>
+                                        </button>
+                                    </div>                                    
+                                </div>
+                                <div id="contenedor_errores_resumen" class="d-none">                       
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="CEX-loading" class="modal d-none"></div>
+    <input type="hidden" id="urlAjax" value="<?php echo $this->getUrl('registrodeenvios/Utilidades/Ajax');?>"/>
+    <a id="etiquetas" download="etiquetas.pdf" class="d-none" href=""></a>
+    <a id="resumen" download="resumen_orden.pdf" class="d-none" href=""> </a>
+
+
+</div>
+<script>
+    // Grabacion masiva de pedidos
+    var introjsGrabacionMasiva = "<?php echo __('Utilidad mediante la que grabaremos nuestros pedidos de forma masiva.');?>";
+    var introjsBuscadorPedidos = "<?php echo __('Desplegable con las tiendas disponibles, deberemos seleccionar la tienda sobre la que queremos trabajar.');?>";
+    var fila1 = "<?php echo __('Filtro mediante el que realizar la búsqueda de nuestros pedidos.');?>";
+    var fila2 = "<?php echo __('Detalle del resultado de la búsqueda de pedidos.');?>";
+    var respuesta_buscador_pedidos = "<?php echo __('Detalle del resultado de la búsqueda de pedidos.');?>";
+    var introjsSeleccionarTodos1 = "<?php echo __('Seleccionaremos todos los pedidos de la tabla.');?>";
+    var introjsTipoEtiqueta = "<?php echo __('Desplegable mediante el que seleccionaremos el tipo de etiqueta que queramos obtener.');?>";
+    var introjsPosicionEtiqueta = "<?php echo __('Desplegable con las posiciones posibles para el tipo de etiqueta seleccionado.');?>";
+    var introjsGenerarGrabacionEnvio = "<?php echo __('Botón para grabar todas las ordenes seleccionadas.');?>";
+
+    // Tabla Grabacion masiva
+    var idTablaGrab = "<?php echo __('ID');?>";
+    var refEnvioTablaGrab = "<?php echo __('REFERENCIA');?>";
+    var estadoTablaGrab = "<?php echo __('ESTADO');?>";
+    var clienteTablaGrab = "<?php echo __('CLIENTE');?>";
+    var fechaTablaGrab = "<?php echo __('FECHA');?>";
+    var numEnvioTablaGrab = "<?php echo __('N. ENVÍO');?>";
+    var codOficinaTablaGrab = "<?php echo __('COD. OFICINA');?>";
+    var bultosTablaGrab = "<?php echo __('BULTOS');?>";
+    var metodoTablaGrab = "<?php echo __('MÉTODO ENVÍO - PRODUCTO');?>";
+    var productoTablaGrab = "<?php echo __('PRODUCTO CEX');?>";
+
+    var procesandoTablaGrab = "<?php echo __('Procesando...');?>";
+    var cargandoTablaGrab = "<?php echo __('Cargando...');?>";
+    var buscarTablaGrab = "<?php echo __('Buscar:');?>";
+    var mostrarTablaGrab = "<?php echo __('Mostrar _MENU_ registros');?>";
+    var noResultadosTablaGrab = "<?php echo __('No se encontraron resultados');?>";
+    var sinDatosTablaGrab = "<?php echo __('Ningún dato disponible en esta tabla');?>";
+    var mostrandoTablaGrab = "<?php echo __('Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros');?>";
+    var mostrandoCeroTablaGrab = "<?php echo __('Mostrando registros del 0 al 0 de un total de 0 registros');?>";
+    var filtrandoTablaGrab = "<?php echo __('(filtrado de un total de _MAX_ registros)');?>";
+    var primeroTablaGrab = "<?php echo __('Primero');?>";
+    var ultimoTablaGrab = "<?php echo __('Último');?>";
+    var siguienteTablaGrab = "<?php echo __('Siguiente');?>";
+    var anteriorTablaGrab = "<?php echo __('Anterior');?>";
+
+    var ascendenteTablaGrab = "<?php echo __(': Activar para ordenar la columna de manera ascendente');?>";
+    var descendenteTablaGrab = "<?php echo __(': Activar para ordenar la columna de manera descendente');?>";
+    var mostrarOcultarTablaGrab = "<?php echo __('Mostrar/Ocultar columnas');?>";
+    var excelTablaGrab = "<?php echo __('Exportar a excel');?>";
+    var csvTablaGrab = "<?php echo __('Exportar a csv');?>";
+    var pdfTablaGrab = "<?php echo __('Exportar a pdf');?>";
+    var envioSinBultos = "<?php echo __("No se ha indicado el número de bultos de la orden ");?>"
+    var errorDatos = "<?php echo __('se ha encontrado un error en los datos');?>";
+
+    // Reimpresion de etiquetas
+    var introjsReimpresion = "<?php echo __('Utilidad mediante la que reimprimiremos cualquier etiqueta generada previamente.');?>";
+    var fecha_reimpresion = "<?php echo __('Fecha sobre la que realizaremos la búsqueda de pedidos.');?>";
+    var contenedor_pedidos = "<?php echo __('Detalle del resultado de la búsqueda de pedidos.');?>";
+    var introjsSeleccionarTodos2 = "<?php echo __('Seleccionaremos todos los pedidos de la tabla.');?>";
+    var select_tipo_etiqueta = "<?php echo __('Desplegable mediante el que seleccionaremos el tipo de etiqueta que queramos obtener.');?>";
+    var posicion_etiquetas = "<?php echo __('Desplegable con las posiciones posibles para el tipo de etiqueta seleccionado.');?>";
+    var grabar_etiqueta = "<?php echo __('Botón para imprimir todas las etiquetas seleccionadas.');?>";
+
+    // Generacion de resumen de pedidos
+    var introjsResumen = "<?php echo __('Utilidad mediante la que imprimiremos el resumen de nuestros pedidos.');?>";
+    var fechas_resumen = "<?php echo __('Fecha sobre la que realizaremos la búsqueda de pedidos.');?>";
+    var contenedor_resumen = "<?php echo __('Detalle del resultado de la búsqueda de pedidos.');?>";
+    var marcarResumen = "<?php echo __('Seleccionaremos todos los pedidos de la tabla.');?>";
+    var boton_resumen = "<?php echo __('Botón para imprimir el resumen todas los pedidos seleccionados.');?>";
+    var numEnvioTablaGrab = "<?php echo __('N. ENVÍO');?>";
+
+    // Tabla reimpresion y resumen
+    var idTabla = "<?php echo __('ID');?>";
+    var refEnvioTabla = "<?php echo __('REF ENVÍO');?>";
+    var codEnvioTabla = "<?php echo __('CÓDIGO ENVÍO');?>";
+    var nomDestinatarioTabla = "<?php echo __('NOMBRE DESTINATARIO');?>";
+    var dirDestinatarioTabla = "<?php echo __('DIRECCIÓN DESTINATARIO');?>";
+    var fechaCreacionTabla = "<?php echo __('FECHA CREACIÓN');?>";
+
+    // Tabla errores
+    var idErroresTabla = "<?php echo __('ID ORDEN');?>";
+    var mensajeErroresTabla = "<?php echo __('MENSAJE');?>";
+    var enlaceErroresTabla = "<?php echo __('ENLACE');?>";
+    var editarErroresTabla = "<?php echo __('EDITAR');?>";
+    var tituloErroresTabla = "<?php echo __('Gestiona los errores de tu pedido');?>";
+    var conErrores = "<?php echo __('Errores en la impresión de la etiqueta');?>";
+
+    //table errores reimpresion masiva
+    var erroresReimpresionCabecera = "<?php echo __('Gestiona los errores de tu pedido');?>";
+    var erroresReimpresionIdOrder = "<?php echo __('ID ORDEN');?>";
+    var erroresReimpresionMensaje = "<?php echo __('MENSAJE');?>";
+    var erroresReimpresionEnlace = "<?php echo __('ENLACE');?>";
+
+    //IntroJS errores reimpresion masiva
+    var introJSErroresReimpresionTable = "<?php echo __('Tabla de errores de reimpresión, tanto a nivel de petición como a nivel de etiqueta');?>";
+    var introJSErroresReimpresionIdOrder = "<?php echo __('Número de orden del pedido que ha provocado el error de reimpresión, si procede (000 en caso de error genérico)');?>";
+    var introJSErroresReimpresionMensaje = "<?php echo __('Descripción del error');?>";
+    var introJSErroresReimpresionEnlace = "<?php echo __('Enlace al pedido que ha provocado el error, si procede(ERROR GENERAL en caso de error genérico)');?>";
+
+    //IntroJS errores resumen
+    var introJSErroresResumenTable = "<?php echo __('Tabla de errores de resumen, tanto a nivel de petición como a nivel de etiqueta');?>";
+    var introJSErroresResumenIdOrder = "<?php echo __('Número de orden del pedido que ha provocado el error en el resumen, si procede (000 en caso de error genérico)');?>";
+    var introJSErroresResumenMensaje = "<?php echo __('Descripción del error');?>";
+    var introJSErroresResumenEnlace = "<?php echo __('Enlace al pedido que ha provocado el error, si procede(ERROR GENERAL en caso de error genérico)');?>";
+
+    //Mensajes de error
+    var selectError = "<?php echo __('Error de selección');?>";
+    var selectOrden = "<?php echo __('Debe seleccionar al menos una orden');?>";
+    var selectEnvio = "<?php echo __('Debe seleccionar al menos un envio de la lista');?>";
+
+    //IntroJS errores   grabacion masiva y reimpresion masiva
+    var introJSErroresGrabacionTable = "<?php echo __('Tabla de errores de reimpresión, tanto a nivel de petición como a nivel de etiqueta');?>";
+    var introJSErroresGrabacionIdOrder = "<?php echo __('Número de orden del pedido que ha provocado el error de reimpresión, si procede (000 en caso de error genérico)');?>";
+    var introJSErroresGrabacionMensaje = "<?php echo __('Descripción del error');?>";
+    var introJSErroresGrabacionEnlace = "<?php echo __('Enlace al pedido que ha provocado el error, si procede(ERROR GENERAL en caso de error genérico)');?>";
+
+    //Mensajes de error Reimpresion
+    var errorReimpresion = "<?php echo __('Han habido errores durante la reimpresión');?>";
+    var errorResumen = "<?php echo __('Han habido errores durante la generación del resumen');?>";
+    var errorGrabacion = "<?php echo __('Han habido errores durante la Grabación');?>";
+    var errorSeleccion = "<?php echo __('Debe seleccionar al menos un elemento de la lista ');?>";
+    var literalEnlaceError = "<?php echo __('ERROR GENERAL');?>";
+</script>

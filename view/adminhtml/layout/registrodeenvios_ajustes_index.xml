@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="CorreosExpress_RegistroDeEnvios::css/bootstrap.min.css"       rel="stylesheet"  type="text/css"/>
+        <css src="CorreosExpress_RegistroDeEnvios::css/gijgo.min.css"           rel="stylesheet"  type="text/css"/>
+        <css src="CorreosExpress_RegistroDeEnvios::css/introjs.css"             rel="stylesheet"  type="text/css"/>
+        <css src="CorreosExpress_RegistroDeEnvios::css/fontawesome.min.css"     rel="stylesheet"  type="text/css"/>
+        <css src="CorreosExpress_RegistroDeEnvios::css/pnotify.custom.min.css"  rel="stylesheet"  type="text/css"/>
+        <css src="CorreosExpress_RegistroDeEnvios::css/pnotify.buttons.css"     rel="stylesheet"  type="text/css"/>
+        <css src="CorreosExpress_RegistroDeEnvios::css/correosexpress.css"      rel="stylesheet"  type="text/css"/>
+        <css src="CorreosExpress_RegistroDeEnvios::css/correosexpress-menu.css" rel="stylesheet"  type="text/css"/>
+        <script src="CorreosExpress_RegistroDeEnvios::js/introJS-configure.js"  type="text/javascript"></script>
+    </head>
+    <referenceBlock name="page.title">
+        <action method="setPageTitle">
+            <argument name="title" xsi:type="string">Correos Express - Ajustes</argument>
+        </action>
+    </referenceBlock>
+    <body>
+        <referenceContainer name="content">
+            <block class="Magento\Backend\Block\Template" template="CorreosExpress_RegistroDeEnvios::ajustes.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

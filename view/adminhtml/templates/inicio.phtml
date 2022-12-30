@@ -1,0 +1,223 @@
+<script type="text/javascript">
+    require(["popper"], function(popper) {
+       define([
+        'jquery',
+        'popper',
+        'domReady!'
+        ], function($, Popper) {
+            "use strict";
+            window.Popper = Popper;
+        });
+   });
+</script>
+<div id="CEX">
+    <div class="CEX-container container CEX-panel info_content mb-0 shadow-none py-5 px-3" id="fieldset_0">
+        <div id="content_entrada">
+            <div class="container-fluid">
+                <div class="row">
+                    <div id="form_salesforce_resp"></div>
+                    <div class="col-12 col-xs-12 col-md-12 col-lg-12 text-center">
+                        <img src="<?php echo $block->getViewFileUrl('CorreosExpress_RegistroDeEnvios::images/correosexpress.png');?>"
+                            class="img-fluid mx-auto d-block cexlogo" id="img-correos-express">
+                    </div>
+                    <div class="col-12 col-xs-12 col-md-12 col-lg-6 mt-5">
+                        <h3 class="mt-3 mb-4 CEX-text-blue negrita">
+                            <?php echo __("Las mejores soluciones de transporte urgente para tus clientes online");?>
+                        </h3>
+                        <div id="form_salesforce_resp"></div>
+                        <div class="row mt-3 d-flex aling-items-center">
+                            <div class="col-2 col-xs-2 text-center my-auto">
+                                <img class="CEX-icon"
+                                    src="<?php echo $block->getViewFileUrl('CorreosExpress_RegistroDeEnvios::images/paq24.png');?>">
+                            </div>
+                            <div class="col-10 col-xs-10">
+                                <h4 class="CEX-text-blue mt-0 negrita">
+                                    <?php echo __("ENTREGA EN OFICINA DE CORREOS");?></h4>
+                                <p><?php echo __("Correos Express ofrece, en exclusiva y ");?><strong
+                                        class="CEX-text-blue"><?php echo __("sin coste adicional");?></strong><?php echo __(", el servicio de entrega en oficina de Correos.");?>
+                                </p>
+                                <p><small>(<?php echo __("Servicio gratuito incluido en tu envío PAQ24H");?>)</small>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row mt-3 d-flex aling-items-center">
+                            <div class="col-2 col-xs-2 text-center my-auto">
+                                <img class="CEX-icon"
+                                    src="<?php echo $block->getViewFileUrl('CorreosExpress_RegistroDeEnvios::images/Entrega_Flexible.png');?>">
+                            </div>
+                            <div class="col-10 col-xs-10">
+                                <h4 class="CEX-text-blue mt-0 negrita">
+                                    <?php echo __("AHÓRRALES ESPERAS CON LA ENTREGA FLEXIBLE");?>
+                                </h4>
+                                <p><?php echo __("Ahora tu cliente destinatario ya puede elegir cuando recibir sus compras si la franja horaria propuesta no le conviene");?>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row mt-3 d-flex aling-items-center">
+                            <div class="col-2 col-xs-2 text-center my-auto">
+                                <img class="CEX-icon"
+                                    src="<?php echo $block->getViewFileUrl('CorreosExpress_RegistroDeEnvios::images/localizacion.png');?>">
+                            </div>
+                            <div class="col-10 col-xs-10">
+                                <h4 class="CEX-text-blue mt-0 negrita">
+                                    <?php echo __("MINIMIZA LAS INCIDENCIAS.");?></h4>
+                                <p><?php echo __("Localización inmediata del destinatario, en caso de ausencia");?>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row mt-3 d-flex aling-items-center">
+                            <div class="col-2 col-xs-2 text-center my-auto">
+                                <img class="CEX-icon"
+                                    src="<?php echo $block->getViewFileUrl('CorreosExpress_RegistroDeEnvios::images/check.png');?>">
+                            </div>
+                            <div class="col-10 col-xs-10">
+                                <h4 class="CEX-text-blue mt-0 negrita">
+                                    <?php echo __("ELIMINA INCERTIDUMBRE.");?></h4>
+                                <p><?php echo __("Si no están en casa, contactamos con ellos para una segunda entrega. Gestión proactiva de incidencias.");?>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row mt-3 d-flex aling-items-center">
+                            <div class="col-2 col-xs-2 text-center my-auto">
+                                <img class="CEX-icon"
+                                    src="<?php echo $block->getViewFileUrl('CorreosExpress_RegistroDeEnvios::images/sms.png');?>">
+                            </div>
+                            <div class="col-10 col-xs-10">
+                                <h4 class="CEX-text-blue mt-0 negrita ">
+                                    <?php echo __("REGÁLALES TRANQUILIDAD.");?></h4>
+                                <p><?php echo __("Avisamos a tus clientes del estado de su envío, vía SMS.");?>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row mt-3 d-flex aling-items-center">
+                            <div class="col-2 col-xs-2 text-center my-auto">
+                                <img class="CEX-icon"
+                                    src="<?php echo $block->getViewFileUrl('CorreosExpress_RegistroDeEnvios::images/calendario.png');?>">
+                            </div>
+                            <div class="col-10 col-xs-10">
+                                <h4 class="CEX-text-blue mt-0 negrita"><?php echo __("ENTREGA CUANTO ANTES.");?>
+                                </h4>
+                                <p><?php echo __("Porque hay cosas que no pueden esperar, entregamos tu pedido en sábado.");?>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-xs-12 col-md-12 col-lg-6 mt-5 mb-0 pt-3">
+                        <div id="CEX-esCliente" class="jumbotron p-4 rounded-0 d-block d-sm-flex mb-0">
+                            <h3 class="d-block d-sm-inline-block my-auto CEX-font-size-1-5">
+                                <strong><?php echo __("Hola,<br/>¿Eres cliente<br/> de <span class='CEX-text-blue'>Correos</span> <span class='CEX-text-blue'>Express</span>?");?></strong>
+                            </h3>
+                            <button
+                                class="d-block d-sm-inline-block CEX-btn btn-large CEX-button-yellow m-0 text-uppercase float-sm-right mt-5 ml-3 px-2 py-3"
+                                onclick="window.location ='/admin/registrodeenvios/ajustes/index/'">
+                                <?php echo __("Sí, configurar mi módulo");?>
+                            </button>
+                        </div>
+                        <div class="CEX-card mt-0 rounded-0 shadow-none">
+                            <h3 class="text-center CEX-text-yellow text-uppercase">
+                                <?php echo __("Soy Nuevo, ¡Llamadme!");?></h3>
+                            <div id="informacion_comercial" class="form-group">
+                                <h4 class="CEX-text-yellow text-center">
+                                <?php echo __("Déjanos tus datos y te llamamos con una oferta de servicios específica para ti.");  ?>
+                                    <br/>
+                                    <?php echo __("¡Sin compromiso!");?>
+                                </h4>
+                            </div>
+                            <div id="CEX-form_info">
+                                <div class="form-group w-75 mx-auto">
+                                    <input type="text" class="form-control" name="nombre" id="nombre"
+                                        placeholder="<?php echo __("Nombre:");?> *" >
+                                </div>
+                                <div class="form-group w-75 mx-auto">
+                                    <input type="tel" class="form-control" name="telefono" id="telefono" maxlength="9"
+                                        placeholder="<?php echo __("Teléfono de contacto *");?>"
+                                        >
+                                </div>
+                                <div class="form-group w-75 mx-auto">
+                                    <input type="email" class="form-control" name="correoelectronico"
+                                        id="correoelectronico"
+                                        placeholder="<?php echo __("Correo electrónico *");?>"
+                                        >
+                                    <input type="hidden" id="lead_source" name="lead_source" value="Magento2" />
+                                    <input type="hidden" id="00Nb00000040KMY" name="00Nb00000040KMY"
+                                        value="0-NO INFORMADA" />
+                                    <input type="hidden" id="URL" maxlength="80" name="URL" size="20"
+                                        value='<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] ?>'>
+                                    <input type=hidden id="oid" name="oid" value="00Db0000000Ykj6">
+                                    <input type=hidden id="resp" name="resp"
+                                        value="{$formPublic_nuevoCliente|escape:'htmlall':'UTF-8'}">
+                                    <input type=hidden name="retURL"
+                                        value='<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] ;?>'>
+                                </div>
+                                <div class="form-group w-75 mx-auto CEX-text-yellow">
+                                    <span
+                                        class="label_required_title_field"><?php echo __("Los campos con ");?></span>
+                                    <span class="label_required">*</span><span
+                                        class="label_required_title_field"><?php echo __("son requeridos.");?></span>
+                                </div>
+                                <!--<div class="form-group d-flex">
+									<input type="checkbox" class="form-control d-inline-block m-0 mr-2" name="newsletter" value="1" aria-invalid="false">
+									<label for="newsletter" class="d-inline-block CEX-text-weight-normal m-0"> Suscribirme al newsletter</label>
+								</div>-->
+
+                                <div class="form-group d-flex w-75 mx-auto">
+                                    <input type="checkbox" class="form-control d-inline-block m-0 mr-2" name="politica"
+                                        id="politica" value="1" aria-invalid="false" required>
+                                    <label for="politica" class="CEX-text-yellow d-inline-block m-0">
+                                        <?php
+                                        echo __('He leído y acepto la ');
+                                        echo('<a target="_blank" href="https://www.correosexpress.com/web/correosexpress/politica-de-proteccion-de-datos">');
+                                        echo __('política de privacidad, ');
+                                        echo('</a>');
+                                        echo __('la ');
+                                        echo('<a href="https://www.correosexpress.com/web/correosexpress/politica-de-proteccion-de-datos" target="_blank">');
+                                        echo __('política de protección de datos ');
+                                        echo('</a>');
+                                        echo __('y el ');
+                                        echo('<span id="data-show" class="text-uppercase" onclick="jQuery(\'#CEX-gdpr-info\').toggle();"><strong>');
+                                        echo __('Detalle legal del formulario.');
+                                        echo('</strong></span>');?>
+                                </div>
+                                <div id="CEX-gdpr" class="form-group">
+                                    <div id="CEX-gdpr-info" class="CEX-text-gris-oscuro">
+                                        <span class="closed" onclick="jQuery('#CEX-gdpr-info').toggle();"><span
+                                                class="fas fa-times" aria-hidden="true"></span></span>
+                                        <h5><?php echo __("Información básica sobre protección de datos");?>
+                                        </h5>
+                                        <ul>
+                                            <li><strong><?php echo __("Responsable:");?></strong>
+                                                <?php echo __("CORREOS EXPRESS S.L.");?></li>
+                                            <li><strong><?php echo __("Finalidad:");?></strong>
+                                                <?php echo __("Comercial");?></li>
+                                            <li><strong><?php echo __("Legitimación:");?></strong>
+                                                <?php echo __("Consentimiento del interesado");?></li>
+                                            <li><strong><?php echo __("Destinatarios:");?></strong>
+                                                <?php echo __("Encargados del tratamiento.");?></li>
+                                            <li><strong><?php echo __("Derechos del Interesado:");?></strong>
+                                                <?php echo __("Acceso, rectificación, supresión, cancelación, limitación y portabilidad de los datos.");?>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="form-group w-75 mx-auto">
+                                    <button id="guardar_form" class="CEX-btn CEX-button-yellow" name="Envio"
+                                    value="<?php echo __("ENVIAR");?>"
+                                        onclick="sendForm(event);"><?php echo __("ENVIAR");?></button>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    require(['jquery', 'PNotify','inicioJs'], function($){
+    });
+</script>

@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+     <!-- Service Contract CexEnvioCron  -->
+    <preference
+        for="CorreosExpress\RegistroDeEnvios\Api\Data\CexEnvioCronInterface"
+        type="CorreosExpress\RegistroDeEnvios\Model\CexEnvioCron" />
+    <preference
+        for="CorreosExpress\RegistroDeEnvios\Api\Data\CexEnvioCronSearchResultsInterface"
+        type="CorreosExpress\RegistroDeEnvios\Model\CexEnvioCronSearchResults" />
+    <preference
+        for="CorreosExpress\RegistroDeEnvios\Api\CexEnvioCronRepositoryInterface"
+        type="CorreosExpress\RegistroDeEnvios\Model\CexEnvioCronRepository" />
+
+     <!-- Service Contract CexRespuestaCron  -->
+    <preference
+        for="CorreosExpress\RegistroDeEnvios\Api\Data\CexRespuestaCronInterface"
+        type="CorreosExpress\RegistroDeEnvios\Model\CexRespuestaCron" />
+    <preference
+        for="CorreosExpress\RegistroDeEnvios\Api\Data\CexRespuestaCronSearchResultsInterface"
+        type="CorreosExpress\RegistroDeEnvios\Model\CexRespuestaCronSearchResults" />
+    <preference
+        for="CorreosExpress\RegistroDeEnvios\Api\CexRespuestaCronRepositoryInterface"
+        type="CorreosExpress\RegistroDeEnvios\Model\CexRespuestaCronRepository" />
+
+     <!-- Service Contract CexMigration  -->
+    <preference
+        for="CorreosExpress\RegistroDeEnvios\Api\Data\CexMigrationInterface"
+        type="CorreosExpress\RegistroDeEnvios\Model\CexMigration" />
+    <preference
+        for="CorreosExpress\RegistroDeEnvios\Api\Data\CexMigrationSearchResultsInterface"
+        type="CorreosExpress\RegistroDeEnvios\Model\CexMigrationSearchResults" />
+    <preference
+        for="CorreosExpress\RegistroDeEnvios\Api\CexMigrationRepositoryInterface"
+        type="CorreosExpress\RegistroDeEnvios\Model\CexMigrationRepository" />
+
+     <!-- Service Contract CexSavedmodeship  -->
+    <preference
+        for="CorreosExpress\RegistroDeEnvios\Api\Data\CexSavedmodeshipInterface"
+        type="CorreosExpress\RegistroDeEnvios\Model\CexSavedmodeship" />
+    <preference
+        for="CorreosExpress\RegistroDeEnvios\Api\Data\CexSavedmodeshipSearchResultsInterface"
+        type="CorreosExpress\RegistroDeEnvios\Model\CexSavedmodeshipSearchResults" />
+    <preference
+        for="CorreosExpress\RegistroDeEnvios\Api\CexSavedmodeshipRepositoryInterface"
+        type="CorreosExpress\RegistroDeEnvios\Model\CexSavedmodeshipRepository" />
+
+     <!-- Service Contract CexOfficedeliverycorreo  -->
+    <preference
+        for="CorreosExpress\RegistroDeEnvios\Api\Data\CexOfficedeliverycorreoInterface"
+        type="CorreosExpress\RegistroDeEnvios\Model\CexOfficedeliverycorreo" />
+    <preference
+        for="CorreosExpress\RegistroDeEnvios\Api\Data\CexOfficedeliverycorreoSearchResultsInterface"
+        type="CorreosExpress\RegistroDeEnvios\Model\CexOfficedeliverycorreoSearchResults" />
+    <preference
+        for="CorreosExpress\RegistroDeEnvios\Api\CexOfficedeliverycorreoRepositoryInterface"
+        type="CorreosExpress\RegistroDeEnvios\Model\CexOfficedeliverycorreoRepository" />
+
+     <!-- Service Contract CexHistory  -->
+    <preference
+        for="CorreosExpress\RegistroDeEnvios\Api\Data\CexHistoryInterface"
+        type="CorreosExpress\RegistroDeEnvios\Model\CexHistory" />
+    <preference
+        for="CorreosExpress\RegistroDeEnvios\Api\Data\CexHistorySearchResultsInterface"
+        type="CorreosExpress\RegistroDeEnvios\Model\CexHistorySearchResults" />
+    <preference
+        for="CorreosExpress\RegistroDeEnvios\Api\CexHistoryRepositoryInterface"
+        type="CorreosExpress\RegistroDeEnvios\Model\CexHistoryRepository" />
+
+     <!-- Service Contract CexSavedship  -->
+    <preference
+        for="CorreosExpress\RegistroDeEnvios\Api\Data\CexSavedshipInterface"
+        type="CorreosExpress\RegistroDeEnvios\Model\CexSavedship" />
+    <preference
+        for="CorreosExpress\RegistroDeEnvios\Api\Data\CexSavedshipSearchResultsInterface"
+        type="CorreosExpress\RegistroDeEnvios\Model\CexSavedshipSearchResults" />
+    <preference
+        for="CorreosExpress\RegistroDeEnvios\Api\CexSavedshipRepositoryInterface"
+        type="CorreosExpress\RegistroDeEnvios\Model\CexSavedshipRepository" />
+
+     <!-- Service Contract CexCustomeroption  -->
+    <preference 
+        for="CorreosExpress\RegistroDeEnvios\Api\Data\CexCustomeroptionInterface" 
+        type="CorreosExpress\RegistroDeEnvios\Model\CexCustomeroption" />
+    <preference 
+        for="CorreosExpress\RegistroDeEnvios\Api\Data\CexCustomeroptionSearchResultsInterface" 
+        type="CorreosExpress\RegistroDeEnvios\Model\CexCustomeroptionSearchResults" />
+    <preference 
+        for="CorreosExpress\RegistroDeEnvios\Api\CexCustomeroptionRepositoryInterface" 
+        type="CorreosExpress\RegistroDeEnvios\Model\CexCustomeroptionRepository" />
+        
+    <!-- Service Contract CexSavedsender  -->
+    <preference
+        for="CorreosExpress\RegistroDeEnvios\Api\Data\CexSavedsenderInterface"
+        type="CorreosExpress\RegistroDeEnvios\Model\CexSavedsender" />
+    <preference
+        for="CorreosExpress\RegistroDeEnvios\Api\Data\CexSavedsenderSearchResultsInterface"
+        type="CorreosExpress\RegistroDeEnvios\Model\CexSavedsenderSearchResults" />
+    <preference
+        for="CorreosExpress\RegistroDeEnvios\Api\CexSavedsenderRepositoryInterface"
+        type="CorreosExpress\RegistroDeEnvios\Model\CexSavedsenderRepository" />
+
+    <!-- Service Contract CexCustomercode  -->
+    <preference
+        for="CorreosExpress\RegistroDeEnvios\Api\Data\CexCustomercodeInterface"
+        type="CorreosExpress\RegistroDeEnvios\Model\CexCustomercode" />
+    <preference
+        for="CorreosExpress\RegistroDeEnvios\Api\Data\CexCustomercodeSearchResultsInterface"
+        type="CorreosExpress\RegistroDeEnvios\Model\CexCustomercodeSearchResults" />
+    <preference
+        for="CorreosExpress\RegistroDeEnvios\Api\CexCustomercodeRepositoryInterface"
+        type="CorreosExpress\RegistroDeEnvios\Model\CexCustomercodeRepository" />
+        
+    <!-- Service Contract CexEnviobultos  -->
+    <preference
+        for="CorreosExpress\RegistroDeEnvios\Api\Data\CexEnviobultosInterface"
+        type="CorreosExpress\RegistroDeEnvios\Model\CexEnviobultos" />
+    <preference
+        for="CorreosExpress\RegistroDeEnvios\Api\Data\CexEnviobultosSearchResultsInterface"
+        type="CorreosExpress\RegistroDeEnvios\Model\CexEnviobultosSearchResults" />
+    <preference
+        for="CorreosExpress\RegistroDeEnvios\Api\CexEnviobultosRepositoryInterface"
+        type="CorreosExpress\RegistroDeEnvios\Model\CexEnviobultosRepository" />
+</config>

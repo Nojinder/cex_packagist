@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+      <add id="CorreosExpress_RegistroDeEnvios::correosexpress"
+           title="Correos Express" 
+           translate="Correos Express"
+           module="CorreosExpress_RegistroDeEnvios" 
+           sortOrder="50" 
+           dependsOnModule="CorreosExpress_RegistroDeEnvios" 
+           resource="CorreosExpress_RegistroDeEnvios::inicio"/>
+        <add id="CorreosExpress_RegistroDeEnvios::inicio" 
+             title="Inicio" 
+             translate="Index" 
+             module="CorreosExpress_RegistroDeEnvios" 
+             parent="CorreosExpress_RegistroDeEnvios::correosexpress" 
+             sortOrder="10" 
+             dependsOnModule="CorreosExpress_RegistroDeEnvios" 
+             action="registrodeenvios/inicio" 
+             resource="CorreosExpress_RegistroDeEnvios::inicio"/>
+        <add id="CorreosExpress_RegistroDeEnvios::ajustes" 
+             title="Ajustes" 
+             translate="Settings" 
+             module="CorreosExpress_RegistroDeEnvios" 
+             parent="CorreosExpress_RegistroDeEnvios::correosexpress" 
+             sortOrder="11" 
+             dependsOnModule="CorreosExpress_RegistroDeEnvios" 
+             action="registrodeenvios/ajustes" 
+             resource="CorreosExpress_RegistroDeEnvios::ajustes"/>
+        <add id="CorreosExpress_RegistroDeEnvios::utilidades" 
+             title="Utilidades" 
+             translate="Utilities" 
+             module="CorreosExpress_RegistroDeEnvios" 
+             parent="CorreosExpress_RegistroDeEnvios::correosexpress" 
+             sortOrder="12" 
+             dependsOnModule="CorreosExpress_RegistroDeEnvios" 
+             action="registrodeenvios/utilidades" 
+             resource="CorreosExpress_RegistroDeEnvios::utilidades"/>
+    </menu>
+</config>

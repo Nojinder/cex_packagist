@@ -1,0 +1,66 @@
+<head>
+	<css src="CorreosExpress_RegistroDeEnvios::css/correosexpress.css" rel="stylesheet" type="text/css" media="all and (min-width: 1px)"  />
+</head>
+
+<script type="text/javascript">
+    require([
+        'PNotify'
+    ], function($, Popper) {
+        "use strict";
+        window.Popper = Popper;
+    });
+</script>
+
+<div data-bind="html: window.checkoutConfig.rec_ofi_cex_block_content"></div>
+<div class="checkout-block" id="block-custom">
+	<input type="hidden" id="urlAjax" value="<?php echo $this->getUrl('registrodeenviosfront/frontend/Ajax');?>"/>
+	<input type="hidden" id="form_key" value="<?php echo $block->getBlockHtml('formkey');?>"/>
+
+	<div id="CEX">
+		<div id="CEX-loading" class="cexmodal d-none"></div>
+		<div id="card_buscador" class="modal CEX-background-white d-none pt-3">
+			<div id='buscador_ofiCabecera' class='d-none mb-2 CEX-background-white w-50 mx-auto mt-5 justify-content-between'>
+			</div>
+			<div id='buscador_ofi' class='container CEX-card-front CEX-background-bluelight2 CEX-text-blue p-0 d-none w-100 mx-auto'>
+				<div class='cexmodal-content my-auto mx-auto w-100'>
+					<span class='cexclose d-inline-block' onclick='cerrarModal();'>&times;</span>
+					<div class='row d-flex mb-3'>
+						<div class='col-12 col-md-6 col-lg-6 form-group d-inline-block w-50 pr-3'>
+							<label for='codigo_postal_ofi' class='d-block'>Código Postal</label>
+							<input type='number' class='form-control d-block rounded w-75' name='codigo_postal_ofi' id='codigo_postal_ofi'>
+						</div>
+						<div class='col-12 col-md-6 col-lg-6 form-group d-inline-block w-50'>
+							<label for='poblacion_ofi' class='d-block'>Población</label>
+							<input type='text' class='form-control d-block rounded w-75' name='poblacion_ofi' id='poblacion_ofi'>
+						</div>
+					</div>
+					<div class='row'>
+						<div class='col-6 col-md-6 col-lg-6'>
+							<button class='CEX-btn CEX-button-yellow d-flex' disabled id='buscar_oficina' name='buscar_oficina' onclick='buscarOficina();'>
+								Buscar oficinas
+							</button>
+						</div>
+                        <div class='col-6 col-md-6 col-lg-6'>
+                            <span id='spanModalOficina' class='CEX-text-blue'>*Introduzca un dato para buscar por favor</span>
+                        </div>
+					</div>
+					<div id="tab_oficinas" class="d-none mt-3">
+						<div class='table-responsive  CEX-text-blue' style="height: 250px">
+							<table id='tabla_oficinas' class="w-100" ></table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--Boton Buscador de Oficinas-->
+		<div id="contenedorOficinas" class="d-block  w-50">
+			<div id="infoOficinas" class="d-none">
+			</div>
+			<div id="contenedorBoton">
+				<button id="botonBuscador" class="CEX-btn CEX-button-yellow mt-2" onclick="abrirModal();">
+					Buscar oficinas
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

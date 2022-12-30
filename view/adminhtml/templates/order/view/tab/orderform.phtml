@@ -1,0 +1,517 @@
+
+<?php
+/**
+* @var $block CorreosExpress\RegistroDeEnvios\Block\Adminhtml\Order\View\Tab\CexCustomTab
+*/
+?>
+<script type="text/javascript">
+    require([
+        'jquery',
+        'popper',
+        'uiComponent',
+        'domReady!',
+        'PNotify',
+        'cexorderJs',
+        'IntroJs',
+        'IntroJsTemplateOrder'
+        ], function($, Popper) {
+            "use strict";
+            window.Popper = Popper;
+        });
+</script>
+<div id="mostrarForm" style="display:none;">
+    <div id="CEX" style="margin-bottom:20px;">
+        <div class="container-fluid pt-3">
+            <div class="row mb-5 d-flex align-items-center">
+                <div class="col-12 col-sm-12">
+                    <div id="CEX-manualInteractivo" class="CEX-manual">
+                        <fieldset class="rounded CEX-background-white border CEX-border-blue px-3">
+                            <legend
+                                class="p-2 ml-2 CEX-background-blue CEX-text-white rounded w-auto border CEX-border-primary mb-3">
+                                <?php echo __('Manual interactivo');?>
+                            </legend>
+                            <div id="contenidoManual" class="form-group mb-3 w-auto d-flex">
+                                <input id="toggleIntroJS" type="checkbox" class="form-control mt-1 my-auto"
+                                    onchange="checkIntroJS();">
+                                <label for="toggleIntroJS" class="m-0 my-auto mr-1 mr-sm-5 CEX-text-blue"><?php echo __('Activar / Desactivar');?></label>
+                                <button id="manualInteractivoOrder" class="CEX-btn btn-large CEX-button-info my-auto d-none"
+                                    href="javascript:void(0)" onclick="introjsOrder();">
+                                    <?php echo __('Manual interactivo');?>
+                                </button>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                        <!--Fin cabecera menu opciones-->
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-8 col-lg-8">
+                    <div class="row">
+                        <div id="introjsFormRemitente" class="col-12 col-md-6 col-lg-6">
+                            <div id="introjsCopiarRemitente" class="form-group CEX-mi-border p-2 rounded" title="<?php echo __("Intercambiar los    datos con los del destinatario");?>">
+                                <input type="checkbox" class="form-control before" id="cex_copia_remitente" value=""
+                                onchange="pedirRemitente();">
+                                <label for="cex_copia_remitente" class="mb-1"><?php echo __("Copiar datos remitente");?></label>
+                            </div>
+                            <div id="introjsRemitente" class="form-group">
+                                <label for="cex_select_remitente"><?php echo __("Remitentes");?></label>
+                                <select id="cex_select_remitentes" name="cex_select_remitentes" class="form-control"
+                                onchange="pedirRemitente();">
+                                <option disabled=""><?php echo __("Seleccione un remitente");?></option>
+                            </select>
+                        </div>
+                        <div id="introjsValoresRemitente">
+                            <div class="form-group">
+                                <label for="cex_nombre_remitente"><?php echo __("Nombre remitente");?></label>
+                                <input id="cex_nombre_remitente" class="form-control" name="cex_nombre_remitente" maxlength="40"
+                                type="text" placeholder="<?php echo __("Nombre remitente");?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="cex_persona_contacto_rem"><?php echo __("Persona contacto");?></label>
+                                <input id="cex_persona_contacto_rem" class="form-control" name="cex_persona_contacto_rem"
+                                maxlength="80" type="text" placeholder="<?php echo __("Persona contacto");?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="cex_direccion_recogida"><?php echo __("Dirección recogida");?></label>
+                                <input id="cex_direccion_recogida" class="form-control" name="cex_direccion_recogida" maxlength="40"
+                                type="text" placeholder="<?php echo __("Dirección recogida");?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="cex_codigo_postal_rem"><?php echo __("Código postal recogida");?></label>
+                                <input type="text" class="form-control" id="cex_codigo_postal_rem" name="cex_codigo_postal_rem"
+                                placeholder="00000">
+                            </div>
+                            <div class="form-group">
+                                <label for="cex_poblacion"><?php echo __("Población recogida");?></label>
+                                <input id="cex_poblacion" class="form-control" name="cex_poblacion" maxlength="40" type="text"
+                                placeholder="<?php echo __("Población");?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="cex_select_paisrte"><?php echo __("País recogida");?></label>
+                                <select class="form-control" id="cex_select_paisrte" name="cex_select_paisrte" onchange="mostrarCodigoAt();">
+                                    <option disabled=""><?php echo __("Seleccione un país");?></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="cex_telefono"><?php echo __("Teléfono remitente");?></label>
+                                <input id="cex_telefono" class="form-control" name="cex_telefono" type="tel"
+                                placeholder="<?php echo __("612345789");?>" maxlength="9">
+                            </div>
+                            <div class="form-group">
+                                <label for="cex_email_remitente"><?php echo __("Email remitente");?></label>
+                                <input id="cex_email_remitente" class="form-control" name="cex_email_remitente" maxlength="40"
+                                type="email" placeholder="email@email.com">
+                            </div>
+                        </div>
+                        <div id="introjsObservacionesRemitente" class="form-group">
+                            <label for="cex_observaciones_recogida"><?php echo __("Observaciones recogida");?></label>
+                            <textarea id="cex_observaciones_recogida" class="form-control" maxlength="69"
+                            name="cex_observaciones_recogida" rows="5" type="text" wrap="soft"
+                            placeholder="<?php echo __("Observaciones recogida");?>"></textarea>
+                        </div>
+                    </div>
+                    <div id="introjsFormDestinatario" class="col-12 col-xs-12 col-md-6 col-lg-6">
+                        <div id="introjsDevolucion" class="form-group CEX-mi-border p-2 rounded" title="<?php echo __("Intercambiar los datos con   los del remitente");?>">
+                            <input type="checkbox" class="form-control before" id="cex_es_devolucion" value=""
+                            onclick="esUnaDevolucion();">
+                            <label for="cex_es_devolucion" class="mb-1"><?php echo __("Es una devolución");?></label>
+                        </div>
+                        <div id="introjsValoresDestinatario">
+                            <div class="form-group">
+                                <label for="cex_select_destinatarios"><?php echo __("Dirección de destino");?></label>
+                                <select id="cex_select_destinatarios" class="form-control" name="cex_select_destinatarios"
+                                onchange="pedirDestinatario();">
+                                <option disabled=""><?php echo __("Seleccione una dirección de destino");?></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="cex_nombre_destinatario"><?php echo __("Nombre destinatario");?></label>
+                            <input id="cex_nombre_destinatario" class="form-control" name="cex_nombre_destinatario"
+                            maxlength="40" type="text" placeholder="<?php echo __("Nombre destinatario");?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="cex_persona_contacto_dest"><?php echo __("Persona contacto");?></label>
+                            <input id="cex_persona_contacto_dest" class="form-control" name="cex_persona_contacto_dest"
+                            maxlength="40" type="text" placeholder="<?php echo __("Persona contacto");?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="cex_direccion"><?php echo __("Dirección destino");?></label>
+                            <input id="cex_direccion" class="form-control" name="cex_direccion" maxlength="80" type="text"
+                            placeholder="<?php echo __("Dirección");?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="cex_codigo_postal_dest"><?php echo __("Código postal destino");?></label>
+                            <input id="cex_codigo_postal_dest" class="form-control" name="cex_codigo_postal_dest" maxlength="9"
+                            type="text" placeholder="<?php echo __("Código postal");?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="cex_ciudad"><?php echo __("Población destino");?></label>
+                            <input type="text" class="form-control" id="cex_ciudad" name="cex_ciudad" placeholder="<?php echo __("Ciudad");?>"
+                            maxlength="40">
+                        </div>
+                        <div id="introjsPaisDestino" class="form-group">
+                            <label for="cex_select_paises"><?php echo __("País destino");?></label>
+                            <select id="cex_select_paises" class="form-control" name="cex_select_paises" onchange="mostrarCodigoAt();">
+                                <option disabled><?php echo __("Seleccione un país");?></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="cex_telefono_destinatario"><?php echo __("Teléfono destinatario");?></label>
+                            <input class="form-control" type="tel" id="cex_telefono_destinatario" name="cex_telefono_destinatario" placeholder="<?php echo __(" Teléfono");?>" maxlength="9">
+                        </div>
+                            <?php /*
+                            <div class="row form-group">
+                                <div class="col-6 col-xs-6">
+                                    <label for="telefono_fijo"><?php echo __("Teléfono fijo");?></label>
+                                    <input class="form-control" type="tel" id="telefono_fijo" name="telefono_fijo"
+                                        placeholder="<?php echo __("Tfn. Fijo");?>" maxlength="9">
+                                </div>
+                                <div class="col-6 col-xs-6">
+                                    <label for="telefono_movil"><?php echo __("Móvil");?></label>
+                                    <input class="form-control" type="tel" id="telefono_movil" name="telefono_movil"
+                                        placeholder="<?php echo __("Tfn. Móvil");?>" maxlength="12">
+                                </div>
+                                </div>*/ ?>
+                                <div class="form-group">
+                                    <label for="cex_email_destinatario"><?php echo __("Email destinatario");?></label>
+                                    <input id="cex_email_destinatario" class="form-control" maxlength="40" name="cex_email_destinatario"
+                                    size="20" type="email" placeholder="<?php echo __("email@email.com");?>">
+                                </div>
+                            </div>
+                            <div id="introjsObservacionesEntrega" class="form-group">
+                                <label for="cex_observaciones_entrega"><?php echo __("Observaciones entrega");?></label>
+                                <textarea id="cex_observaciones_entrega" class="form-control" maxlength="69"
+                                name="cex_observaciones_entrega" rows="5" type="text" wrap="soft"
+                                placeholder="<?php echo __("Observaciones entrega");?>"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div id="introjsFormExtra" class="col-12 col-xs-12 col-md-4 col-lg-4">
+                    <div class="CEX-mi-border p-2 rounded mb-3">
+                        <label class="mb-1"><?php echo __("Datos del envío");?></label>
+                    </div>
+                    <div id="introjsCodCliente" class="form-group">
+                        <label><?php echo __("Código cliente de facturación");?></label>
+                        <select id="cex_select_codigos_cliente" class="form-control" name="cex_select_codigos_cliente">
+                        </select>
+                    </div>
+                    <div id="introjsRefEnvio" class="form-group">
+                        <label for="cex_referencia_envio"><?php echo __("Referencia de envío");?></label>
+                        <input id="cex_referencia_envio" class="form-control" name="cex_referencia_envio" size="20" type="text"
+                        placeholder="<?php echo __("Referencia de envío");?>">
+                    </div>
+                    <div id="introjsAtPortugal" class="form-group d-none">
+                        <label for="cex_at_portugal"><?php echo __("Código AT");?></label>
+                        <input id="cex_at_portugal" class="form-control" name="cex_at_portugal" size="25" type="text" maxlength="25"
+                        placeholder="<?php echo __("Envíos con origen y/o destino Portugal");?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="cex_descripcion1"><?php echo __("Descripción referencia(1)");?></label>
+                        <input id="cex_descripcion1" class="form-control" name="cex_descripcion1" size="20" type="text"
+                        placeholder="<?php echo __("Descripción referencia(1)");?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="cex_descripcion2"><?php echo __("Descripción referencia(2)");?></label>
+                        <input id="cex_descripcion2" class="form-control" name="cex_descripcion2" size="20" type="text"
+                        placeholder="<?php echo __("Descripción referencia(2)");?>">
+                    </div>
+                    <div id="introjsFechaEntrega" class="form-group">
+                        <label for="cex_descripcion1"><?php echo __("Fecha de grabación");?></label>
+                        <div class="input-group date" data-target-input="nearest">
+                            <input type="text" id="cex_fecha_entrega" class="form-control d-block" data-target="#cex_fecha_entrega"  name="cex_fecha_entrega"/>
+                                <div class="input-group-append" data-target="#cex_fecha_entrega" data-toggle="datetimepicker">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="introjsHHMM" class="row form-group">
+                        <div class="col-6 col-xs-6">
+                            <label for="cex_desdeh"><?php echo __("Desde(h:m)");?></label>
+                        </div>
+                        <div class="col-6 col-xs-6">
+                            <label for="cex_hastah"><?php echo __("Hasta(h:m)");?></label>
+                        </div>
+                        <div class="col-6 col-xs-6 d-flex">
+                            <input class="form-control d-inline-block mr-1 p-2" type="number" min="0" max="23" step="1"
+                            value="00" id="cex_desdeh" name="cex_desdeh">
+                            <span class="d-inline-block my-auto"><strong>:</strong></span>
+                            <input class="form-control d-inline-block ml-1 p-2" type="number" min="0" max="59" step="1"
+                            value="00" id="cex_desdem" name="cex_desdem">
+                        </div>
+                        <div class="col-6 col-xs-6 d-flex">
+                            <input class="form-control d-inline-block mr-1 p-2" type="number" min="0" max="23" step="1"
+                            value="00" id="cex_hastah" name="cex_desdeh">
+                            <span class="d-inline-block my-auto"><strong>:</strong></span>
+                            <input class="form-control d-inline-block ml-1 p-2" type="number" min="0" max="59" step="1"
+                            value="00" id="cex_hastam" name="cex_desdem">
+                        </div>
+                    </div>
+                    <div id="introjsBultosKilos" class="row form-group">
+                        <div class="col-6 col-xs-6">
+                            <label for="cex_bultos"><?php echo __("Bultos");?></label>
+                            <input class="form-control" type="number" id="cex_bultos" name="cex_bultos" min="0" max="9999" step="1" placeholder="<?php echo __("Número de bultos por defecto");?>">
+                        </div>
+                        <div class="col-6 col-xs-6">
+                            <label id="cex_unidadMedida" for="cex_kilos"><?php echo __("Peso");?></label>
+                            <input class="form-control" type="number" id="cex_kilos" name="cex_kilos" value="1"  min="0" max="9999" step="0.01" placeholder="<?php  echo __("KG");?>">
+                        </div>
+                    </div>
+                    <div id="introjsContrareembolso" class="form-group">
+                        <input type="checkbox" id="cex_contrareembolso" class="form-control before" value=""
+                        onchange="pedirPrecioPedido();">
+                        <label for="cex_contrareembolso"><?php echo __("Contrareembolso");?></label>
+                        <div id="introjsValorContrareembolso">
+                            <input id="cex_valor_contrareembolso" class="form-control" name="cex_valor_asegurado"
+                            placeholder="<?php echo __("Valor contrareembolso");?>" size="20" type="text">
+                        </div>
+                    </div>
+                    <div id="introjsValorAsegurado" class="form-group">
+                        <label for="cex_valor_asegurado"><?php echo __("Valor asegurado");?></label>
+                        <input id="cex_valor_asegurado" class="form-control" name="cex_valor_asegurado" size="20" type="text">
+                    </div>
+                    <div id="introjsModalidadEnvio">
+                        <div class="form-group">
+                            <label for="cex_select_movilidad_envio"><?php echo __("Modalidad de envío");?></label>
+                            <select id="cex_select_modalidad_envio" class="form-control" name="cex_select_modalidad_envio"
+                            onchange="mostrarCheck();">
+                            <option disabled><?php echo __("Seleccione una modalidad de envío");?></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" id="cex_entrega_sabado" class="form-control before" value=""
+                        onclick="comprobarMetodo()">
+                        <label for="cex_entrega_sabado"><?php echo __("Entrega sábado");?></label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-xs-12 col-sm-8 col-lg-8">
+                <div class="row CEX-background-order py-3 rounded-2 m-0">
+                    <div id="introjsCaracteristicasEtiquetas" class="col-12">
+                        <div class="row">
+                            <div id="introjsTipoEtiquetas" class="form-group col-6 col-xs-6">
+                                <label for="cex_select_etiqueta"><?php echo __("Tipo de etiqueta");?></label>
+                                <select class="form-control" id="cex_select_etiqueta" onchange="pintarSelectPosicion()">
+                                    <option disabled><?php echo __("Seleccione el tipo de Etiqueta");?></option>
+                                    <option value="1"><?php echo __("Adhesiva");?></option>
+                                    <option value="2"><?php echo __("Medio folio");?></option>
+                                    <option value="3"><?php echo __("Térmica");?></option>
+                                </select>
+                            </div>
+                            <div id="introjsPosicionEtiquetas" class="form-group col-6 col-xs-6">
+                                <label for="cex_posicion_etiqueta"><?php echo __("Posición de etiqueta");?></label>
+                                <select class="form-control" id="cex_posicion_etiqueta">
+                                    <option disabled><?php echo __("Seleccione la posición de la Etiqueta");?></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-12 col-xs-12">
+                        <input type="checkbox" class="form-control mt-0 before" id="cex_grabar_recogida" value="">
+                        <label for="cex_grabar_recogida" class="mb-0"><?php echo __("Grabar Recogida");?></label>
+                    </div>
+                    <div class="col-12 col-xs-12">
+                        <button id="grabar_envio" class="CEX-btn CEX-button-yellow mx-auto my-3" name="grabar_envio"
+                        onclick="validarDatos();"><?php echo __("Grabar Envío");?></button>
+                        <input type="hidden" id="urlAjax" value="<?php echo $this->getUrl('registrodeenvios/Cexorder/Ajax');?>"/>
+                        <input type="hidden" id="idOrder" value="<?php echo $this->getRequest()->getParam('order_id');?>"/>
+                        <?php echo $block->getBlockHtml('formkey');?>
+                    </div>
+                </div>
+            </div>
+            <div id="cex_informacion_oficina" class="form-group alert mi-alert-info col-12 col-sm-4 col-md-4 col-lg-4 mt-3 mt-sm-0 py-3 px-sm-1 mb-1 d-none">
+                <div class="form-group d-flex mb-1">
+                    <input type="checkbox" class="form-control m-0 before" id="cex_entrega_oficina" name="cex_entrega_oficina" onchange="mostrarBoton();">
+                    <label for="cex_entrega_oficina"><?php echo __("Entrega en oficinas de correos");?></label>
+                </div>
+                <p class="mb-1"><small><?php echo __("*El servicio de entrega en oficinas no se puede realizar con importe de reembolso.");?></small></p>
+                <p class="mb-1"><strong><?php echo __("Código de Oficina: ");?></strong>
+                    <span id="cex_span_text_oficina" style="display:none;"></span>
+                    <span id="cex_span_codigo_oficina"></span></p>
+                    <p class="mb-0"><button name="buscador_oficina" id="buscador_oficina" class="CEX-btn CEX-button-blue d-none"
+                        onclick="mostrarBuscador();"><?php echo __("BUSCADOR OFICINAS");?></button></p>
+                    </div>
+                </div>
+            </div>
+            <div id="buscador_ofi" class="cexmodal d-none">
+                <div id="buscador_ofiContent" class="cexmodal-content CEX-background-bluelight2 CEX-text-blue rounded">
+                    <span class="cexclose" onclick="cerrarModal();">&times;</span>
+                    <h3 class="mt-1 mb-4 CEX-text-blue"><?php echo __("Buscador de Oficinas");?></h3>
+                    <div class="row">
+                        <div class="col-6 col-md-6 col-lg-6 form-group">
+                            <label for="cex_codigo_postal_ofi"><?php echo __("Código Postal");?></label>
+                            <input type="number" class="form-control" name="cex_codigo_postal_ofi" id="cex_codigo_postal_ofi">
+                        </div>
+                        <div class="col-6 col-md-6 col-lg-6 form-group">
+                            <label for="cex_poblacion_ofi"><?php echo __("Población");?></label>
+                            <input type="text" class="form-control" name="cex_poblacion_ofi" id="cex_poblacion_ofi">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-md-12 col-lg-12">
+                            <button class="CEX-btn CEX-button-yellow" name="buscar_oficina" value=""
+                            onclick="buscarOficina();">
+                            <?php echo __("Buscar oficinas");?>
+
+                        </button>
+                    </div>
+                </div>
+
+                <div id="contenedor_tab_oficinas" class="row mt-3 mx-1 d-none">
+                    <div id="tab_oficinas" class="col-12 col-md-12 col-lg-12 px-0 table-responsive">
+                        <table id="tabla_oficinas" border="0" class="table table-striped m-0"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="respuestaWS" class="container-fluid d-none"></div>
+
+        <a id='etiqueta' download='etiqueta.pdf' href="" title='Download pdf document' class="d-none"> </a>
+    </div>
+    <div id="CEX">
+        <div id="history" class="row mt-3 mx-1 d-none">
+            <div class="entry-edit">
+                <div class="entry-edit-head">
+                    <h4 class="icon-head head-products"><?php echo __("Histórico de envios");?></h4>
+                </div>
+            </div>
+            <div class="col-12 col-md-12 col-lg-12 p-0 rounded CEX-overflow-y-hidden">
+                <table id="tabla_historico" border="1" class="table w-100">
+                </table>
+            </div>
+            <div class="col-12 col-xs-12 col-sm-8 col-lg-8">
+                <div class="row CEX-background-order py-3 rounded-2 m-0">
+                    <div id="introjsCaracteristicasEtiquetasReimpresion" class="col-12">
+                        <div class="row">
+                            <div id="introjsTipoEtiquetasReimpresion" class="form-group col-6 col-xs-6">
+                                <label for="select_etiqueta_reimpresion"><?php echo __("Tipo de Etiqueta");?> </label>
+                                <select class="form-control" id="select_etiqueta_reimpresion" onchange="pintarSelectPosicionReimpresion()">
+                                    <option disabled><?php echo __("Seleccione el tipo de Etiqueta");?> </option>
+                                    <option value="1"><?php echo __("Adhesiva");?> </option>
+                                    <option value="2"><?php echo __("Medio folio");?> </option>
+                                    <option value="3"><?php echo __("Térmica");?> </option>
+                                </select>
+                            </div>
+                            <div id="introjsPosicionEtiquetasReimpresion" class="form-group col-6 col-xs-6">
+                                <label for="posicion_etiqueta_reimpresion"><?php echo __("Posición de etiqueta");?> </label>
+                                <select class="form-control" id="posicion_etiqueta_reimpresion">
+                                    <option disabled><?php echo __("Seleccione la posición de la Etiqueta");?> </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                        <div id="introjsBotonReimprimir" class="col-12 col-xs-12">
+                            <button id="boton_reimprimir" class="CEX-btn CEX-button-yellow mx-auto my-3" name="grabar_envio" onclick="generarEtiquetasReimpresionOrder(false,event);">
+                                <?php echo __("Reimprimir");?>
+                            </button>
+                        </div>
+                        <div id="erroresReimpresion" class="container-fluid d-none border-0"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--</div>-->
+<script>
+
+    var msg_noMapped =  '<?php echo __("Esta orden tiene un trasportista asignado que no corresponde con ninguna modalidad de envío de CorreosExpress.");?>';
+    var msg_noRemitente = '<?php echo __("Debe guardar un remitente por defecto para grabar un envío.");?>';
+    var errorReferencia =  '<?php echo __("DEBE INTRODUCIR UNA REFERENCIA");?>';
+
+    //Cabeceras de la Orden
+    var introjsFormRemitente= '<?php echo __("Sección de datos referente al remitente.");?>';
+    var introjsFormDestinatario= '<?php echo __("Sección de datos referente al destinatario.");?>';
+    var introjsFormExtra= '<?php echo __("Información extra sobre el pedido.");?>';
+
+    //Configuraciuon del remitente
+    var introjsRemitente= '<?php echo __("Desplegable con el listado de remitentes de la tienda en curso. Siempre vendrá seleccionado nuestro “Remitente por defecto”, pudiendo cambiarlo cuando se desee.");?>';
+    var introjsCopiarRemitente= '<?php echo __("Utilidad que nos permite rellenar automáticamente la sección remitente con los datos del remitente seleccionado en el apartado inferior.");?>';
+    var introjsValoresRemitente= '<?php echo __("Resto de campos con información del remitente.");?>';
+    var introjsObservacionesRemitente= '<?php echo __("Campo para indicar cualquier detalle de interés, sobre la recogida del pedido.");?>';
+
+    //Configuracion Destinatario
+    var introjsDevolucion= '<?php echo __("Utilidad que nos permite copiar los datos del remitente al destinatario, en caso de que sea una devolución.");?>';
+    var introjsValoresDestinatario= '<?php echo __("Resto de campos con información del destinatario.");?>';
+    var introjsObservacionesEntrega= '<?php echo __("Campo para indicar cualquier detalle de interés, sobre la entrega del pedido.");?>';
+
+    //Configuracion Orden Extra
+    var introjsCodCliente= '<?php echo __("Código de cliente sobre el que se graba el envío.");?>';
+    var introjsFechaEntrega= '<?php echo __("Fecha marcada para la entrega del pedido.");?>';
+    var introjsHHMM= '<?php echo __("Horario en el que se realizará la recogida");?>';
+    var introjsRefEnvio= '<?php echo __("Código de referencia del envío.");?>';
+    var introjsAtPortugal='<?php echo __("Envíos con origen y/o destino Portugal");?>';
+    var introjsPaisDestino = '<?php echo __("País de destino del pedido, el CP del destinatario debe pertenecer al país seleccionado.");?>';
+    //var introjsDescripcion = '<?php echo __("Referencias para el envío");?>';
+    //var select_paises= '<?php echo __("País de destino del pedido, el CP del destinatario debe pertenecer al país seleccionado.");?>';
+
+    var introjsContrareembolso= '<?php echo __("Utilidad que nos permite cobrar un importe contrareembolso.");?>';
+    var introjsValorContrareembolso= '<?php echo __("Valor a cobrar por el método contrareembolso.");?>';
+    var introjsValorAsegurado= '<?php echo __("Si el pedido está asegurado, aquí se introducirá el importe del mismo.");?>';
+    var introjsBultosKilos= '<?php echo __("Campos para establecer el número de bultos y los kilos del paquete respectivamente.");?>';
+    var introjsModalidadEnvio= '<?php echo __("Seleccionable de los productos activos seleccionados en la configuración por usted.");?>';
+
+    //Tipo y posicion Etiqueta grabacion unitaria
+    var introjsTipoEtiquetas= '<?php echo __("Desplegable mediante el que seleccionaremos el tipo de etiqueta que queramos obtener.");?>';
+    var introjsPosicionEtiquetas= '<?php echo __("Desplegable con las posiciones posibles para el tipo de etiqueta seleccionado.");?>';
+
+    //Grabaciones
+    var cex_grabar_recogida= '<?php echo __("Solo seleccionar esta opción en caso de necesitar envío con recogida.");?>';
+    var grabar_envio= '<?php echo __("Botón mediante el que grabaremos el envío y obtendremos la etiqueta.");?>';
+
+    //IntroJs Tabla historico Envios
+    var tabla_historico= '<?php echo __("Tabla en la que podremos consultar el histórico del pedido.");?>';
+    var introjsCaracteristicasEtiquetasReimpresion = '<?php echo __("Selección de Etiquetas para la reimpresión.  Específico para la reimpresión de etiquetas");?>';
+
+    // Tipo y posicion etiqueta Reimpresion
+    var introjsTipoEtiquetasReimpresion = '<?php echo __("Desplegable mediante el que seleccionaremos el tipo de etiqueta que queramos obtener. Específico para la reimpresión de etiquetas");?>';
+    var introjsPosicionEtiquetasReimpresion = '<?php echo __("Desplegable con las posiciones posibles para el tipo de etiqueta seleccionado. Específico para la reimpresión de etiquetas");?>';
+    var introjsCheckEnvios = '<?php echo __("Su selección permite la reimpresión de las etiquetas de ese envío al pulsar el botón Reimprimir");?>';
+    var introjsIconoReimprimir = '<?php echo __("Reimprimirá las etiquetas del envío de esa fila de la tabla con el tipo y posicion determinado en los desplegables inferiores");?>';
+    var introjsIconoBorrarEnvio = '<?php echo __("Borrará el envío de los registros de Correos Express");?>';
+    var introjsBotonReimprimir = '<?php echo __("Reimprimirá las etiquetas que se hayan seleccionado en la tabla de grabaciones del tipo seleccionado en los desplegables");?>';
+    var introjsIdentificador = '<?php echo __("Enlace que abrirá la página de seguimiento de pedido de Correos Express");?>';
+
+    var cp= '<?php echo __("CP");?>';
+    var nombre= '<?php echo __("Nombre");?>';
+    var poblacion= '<?php echo __("Población");?>';
+    var direccion= '<?php echo __("Dirección");?>';
+    var cod_oficina= '<?php echo __("Cod Oficina");?>';
+
+    var seleccionar= '<?php echo __("Seleccionar");?>';
+    var borrar_datos= '<?php echo __("¿Borrar datos?");?>';
+    var confirma_la_operacion= '<?php echo __("Confirma la operación");?>';
+    var guardar_datos_pedido= '<?php echo __("¿Guardar datos de pedido?");?>';
+    var cambio_de_modalidad= '<?php echo __("Cambio de modalidad");?>';
+    var confirma_el_borradoOrden= '<?php echo __("Confirma el borrado");?>';
+    var borradoOrden= '<?php echo __("Borrado");?>';
+    var introducir_telefono_movil= '<?php echo __("PARA LA ENTREGA EN OFICINA ES NECESARIO INTRODUCIR EL TELÉFONO MÓVIL");?>';
+    var hora_anterior_actual= '<?php echo __("HORA ANTERIOR A LA ACTUAL.");?>';
+    var numero_butos= '<?php echo __("NÚMERO DE BULTOS NO PERMITIDO");?>';
+    var error_entrega_sabados= '<?php echo __("El producto CEX seleccionado no permite entrega los sábados.");?>';
+    var error_opcion_contrareembolso= '<?php echo __("No se puede utilizar el servicio entrega en oficina con la opcion de contrareembolso activada");?>';
+    var error_opcion_servicio= '<?php echo __("No se puede utilizar el servicio de contrareembolso con la opcion entrega en oficina activada");?>';
+    var envios_a_portugal= '<?php echo __("Los envíos a Portugal solo están disponibles si se utiliza el PAQ 24 ¿Quieres cambiar la modalidad de envío a PAQ 24?");?>';
+
+    var seguimiento= '<?php echo __("Seguimiento");?>';
+    var fecha='<?php echo __("Fecha");?>';
+    var refPedido='<?php echo __("Ref.Pedido");?>';
+    var tipo='<?php echo __("Tipo");?>';
+    var identif='<?php echo __("Identificador");?>';
+    var recogidaDesde='<?php echo __("Recogida Desde");?>';
+    var fechaRecogida='<?php echo __("Fecha de Recogida");?>';
+    var horaDesde='<?php echo __("Hora Recogida desde");?>';
+    var horaHasta='<?php echo __("Hora Recogida hasta");?>';
+    var estado='<?php echo __("Estado");?>';
+    var acciones='<?php echo __("Acciones");?>';
+
+    //Botón Reimprimir
+    var errorRef = '<?php echo __(" No es una referencia Guardada en Base de Datos");?>';
+    var selectEnvioOrder = "<?php echo __('Debe seleccionar al menos un envio de la lista');?>";
+    var errorWs     = "<?php echo __('Error en la respuesta, vuelva a intentarlo más tarde');?>";
+
+    //Errores Reimpresion
+    var errorReimpresionOrden = '<?php echo __("Han habido errores durante la reimpresión");?>';
+
+    //Validacion Buscar Oficina
+    var validaBuscarOficina = '<?php echo __("Introduzca datos de Búsqueda.");?>';
+</script>

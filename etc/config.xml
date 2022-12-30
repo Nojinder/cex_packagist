@@ -1,0 +1,187 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <carriers>
+            <cexpaq24>
+                <active>0</active>
+                <sallowspecific>0</sallowspecific>
+                <model>CorreosExpress\RegistroDeEnvios\Model\Carrier\cexPaq24</model>
+                <name>cexPaq24</name>
+                <shipping_cost>0.00</shipping_cost>
+                <title>PAQ 24</title>
+                <specificerrmsg>This shipping method is not available right now.</specificerrmsg>
+            </cexpaq24>
+            <cexepaq24>
+                <active>0</active>
+                <sallowspecific>0</sallowspecific>
+                <model>CorreosExpress\RegistroDeEnvios\Model\Carrier\cexEpaq24</model>
+                <name>cexEpaq24</name>
+                <shipping_cost>0.00</shipping_cost>
+                <title>ePaq 24</title>
+                <specificerrmsg>This shipping method is not available right now.</specificerrmsg>
+            </cexepaq24>
+            <cexpaq10>
+                <active>0</active>
+                <sallowspecific>0</sallowspecific>
+                <model>CorreosExpress\RegistroDeEnvios\Model\Carrier\cexPaq10</model>
+                <name>cexpaq10</name>
+                <shipping_cost>0.00</shipping_cost>
+                <title>PAQ 10</title>
+                <specificerrmsg>This shipping method is not available right now.</specificerrmsg>
+            </cexpaq10>
+            <cexpaq14>
+                <active>0</active>
+                <sallowspecific>0</sallowspecific>
+                <model>CorreosExpress\RegistroDeEnvios\Model\Carrier\cexPaq14</model>
+                <name>cexpaq14</name>
+                <shipping_cost>0.00</shipping_cost>
+                <title>PAQ 14</title>
+                <specificerrmsg>This shipping method is not available right now.</specificerrmsg>
+            </cexpaq14>
+            <cexbaleares>
+                <active>0</active>
+                <sallowspecific>0</sallowspecific>
+                <model>CorreosExpress\RegistroDeEnvios\Model\Carrier\cexBaleares</model>
+                <name>cexbaleares</name>
+                <shipping_cost>0.00</shipping_cost>
+                <title>Baleares</title>
+                <specificerrmsg>This shipping method is not available right now.</specificerrmsg>
+            </cexbaleares>
+            <cexcanarias>
+                <active>0</active>
+                <sallowspecific>0</sallowspecific>
+                <model>CorreosExpress\RegistroDeEnvios\Model\Carrier\cexCanarias</model>
+                <name>cexcanarias</name>
+                <shipping_cost>0.00</shipping_cost>
+                <title>Canarias Express</title>
+                <specificerrmsg>This shipping method is not available right now.</specificerrmsg>
+            </cexcanarias>
+            <cexcanariasaereo>
+                <active>0</active>
+                <sallowspecific>0</sallowspecific>
+                <model>CorreosExpress\RegistroDeEnvios\Model\Carrier\cexCanariasAereo</model>
+                <name>cexcanariasaereo</name>
+                <shipping_cost>0.00</shipping_cost>
+                <title>Canarias Aereo</title>
+                <specificerrmsg>This shipping method is not available right now.</specificerrmsg>
+            </cexcanariasaereo>
+            <cexcanariasmaritimo>
+                <active>0</active>
+                <sallowspecific>0</sallowspecific>
+                <model>CorreosExpress\RegistroDeEnvios\Model\Carrier\cexCanariasMaritimo</model>
+                <name>cexcanariasmaritimo</name>
+                <shipping_cost>0.00</shipping_cost>
+                <title>Canarias Maritimo</title>
+                <specificerrmsg>This shipping method is not available right now.</specificerrmsg>
+            </cexcanariasmaritimo>
+            <cexportugal>
+                <active>0</active>
+                <sallowspecific>0</sallowspecific>
+                <model>CorreosExpress\RegistroDeEnvios\Model\Carrier\cexPortugal</model>
+                <name>cexportugal</name>
+                <shipping_cost>0.00</shipping_cost>
+                <title>CEX Portugal Óptica</title>
+                <specificerrmsg>This shipping method is not available right now.</specificerrmsg>
+            </cexportugal>
+            <cexpaqoptica>
+                <active>0</active>
+                <sallowspecific>0</sallowspecific>
+                <model>CorreosExpress\RegistroDeEnvios\Model\Carrier\cexPaqOptica</model>
+                <name>cexpaqoptica</name>
+                <shipping_cost>0.00</shipping_cost>
+                <title>Paqueteria Optica</title>
+                <specificerrmsg>This shipping method is not available right now.</specificerrmsg>
+            </cexpaqoptica>
+            <cexpaqinternacional>
+                <active>0</active>
+                <sallowspecific>0</sallowspecific>
+                <model>CorreosExpress\RegistroDeEnvios\Model\Carrier\cexPaqInternacional</model>
+                <name>cexpaqinternacional</name>
+                <shipping_cost>0.00</shipping_cost>
+                <title>Internacional Express</title>
+                <specificerrmsg>This shipping method is not available right now.</specificerrmsg>
+            </cexpaqinternacional>
+            <cexpaqinterestandar>
+                <active>0</active>
+                <sallowspecific>0</sallowspecific>
+                <model>CorreosExpress\RegistroDeEnvios\Model\Carrier\cexPaqInterEstandar</model>
+                <name>cexpaqinterestandar</name>
+                <shipping_cost>0.00</shipping_cost>
+                <title>Internacional Estandard</title>
+                <specificerrmsg>This shipping method is not available right now.</specificerrmsg>
+            </cexpaqinterestandar>
+            <cexpaqempresa14>
+                <active>0</active>
+                <sallowspecific>0</sallowspecific>
+                <model>CorreosExpress\RegistroDeEnvios\Model\Carrier\cexPaqEmpresa14</model>
+                <name>cexpaqempresa14</name>
+                <shipping_cost>0.00</shipping_cost>
+                <title>Paq Empresa 14</title>
+                <specificerrmsg>This shipping method is not available right now.</specificerrmsg>
+            </cexpaqempresa14>
+            <cexcampana>
+                <active>0</active>
+                <sallowspecific>0</sallowspecific>
+                <model>CorreosExpress\RegistroDeEnvios\Model\Carrier\cexCampana</model>
+                <name>cexcampana</name>
+                <shipping_cost>0.00</shipping_cost>
+                <title>Campaña CEX</title>
+                <specificerrmsg>This shipping method is not available right now.</specificerrmsg>
+            </cexcampana>
+            <cexentregamultichrono>
+                <active>0</active>
+                <sallowspecific>0</sallowspecific>
+                <model>CorreosExpress\RegistroDeEnvios\Model\Carrier\cexEntregaMultichrono</model>
+                <name>cexentregamultichrono</name>
+                <shipping_cost>0.00</shipping_cost>
+                <title>Entrega + Recogida Multichrono</title>
+                <specificerrmsg>This shipping method is not available right now.</specificerrmsg>
+            </cexentregamultichrono>
+            <cexentregamanipmultichrono>
+                <active>0</active>
+                <sallowspecific>0</sallowspecific>
+                <model>CorreosExpress\RegistroDeEnvios\Model\Carrier\cexEntregaManipMultichrono</model>
+                <name>cexentregamanipmultichrono</name>
+                <shipping_cost>0.00</shipping_cost>
+                <title>Entrega + recogida + Manip Multichrono</title>
+                <specificerrmsg>This shipping method is not available right now.</specificerrmsg>
+            </cexentregamanipmultichrono>
+            <cexEntregaOficina>
+                <active>0</active>
+                <sallowspecific>0</sallowspecific>
+                <model>CorreosExpress\RegistroDeEnvios\Model\Carrier\cexEntregaOficina</model>
+                <name>Custom Shipping cexEntregaOficina</name>
+                <shipping_cost>0.00</shipping_cost>
+                <title>Entrega en Oficina</title>
+                <specificerrmsg>This shipping method is not available right now.</specificerrmsg>
+            </cexEntregaOficina>
+            <cexislasexpress>
+                <active>0</active>
+                <sallowspecific>0</sallowspecific>
+                <model>CorreosExpress\RegistroDeEnvios\Model\Carrier\cexIslasExpress</model>
+                <name>Servicio aéreo urgente para envíos a Baleares, Canarias, Azores y Madeira.</name>
+                <shipping_cost>0.00</shipping_cost>
+                <title>Islas Express</title>
+                <specificerrmsg>This shipping method is not available right now.</specificerrmsg>
+            </cexislasexpress>
+             <cexislasdoc>
+                <active>0</active>
+                <sallowspecific>0</sallowspecific>
+                <model>CorreosExpress\RegistroDeEnvios\Model\Carrier\cexIslasDoc</model>
+                <name>Islas Documentación</name>
+                <shipping_cost>0.00</shipping_cost>
+                <title>Islas Docs</title>
+                <specificerrmsg>This shipping method is not available right now.</specificerrmsg>
+            </cexislasdoc>
+            <cexislasmaritimo>
+                <active>0</active>
+                <sallowspecific>0</sallowspecific>
+                <model>CorreosExpress\RegistroDeEnvios\Model\Carrier\cexIslasMaritimo</model>
+                <name>Servicio marítimo de entrega para envios menos urgentes con destino Canarias, Azores y Madeira,</name>
+                <shipping_cost>0.00</shipping_cost>
+                <title>Islas Maritimo</title>
+                <specificerrmsg>This shipping method is not available right now.</specificerrmsg>
+            </cexislasmaritimo>
+        </carriers>
+    </default>
+</config>

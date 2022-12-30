@@ -1,0 +1,1413 @@
+<script type="text/javascript">
+    require([
+        'jquery',
+        'popper',
+        'domReady!',
+        'PNotify',
+        'ajustesJs',
+        'IntroJs',
+        'IntroJsConfigure'
+        ], function($, Popper) {
+            "use strict";
+            window.Popper = Popper;
+        });
+
+</script>
+<div id="CEX" class="CEX-panel">
+    <div id="configuracion" class="CEX-container container pt-5 px-3 pr-sm-5">
+        <div class="row">
+            <div class="col-12 col-md-12 col-lg-12">
+                <div id="CEX-cabecera" class="row mb-4 mb-sm-1 d-flex align-items-center">
+                    <!--Inicio Cabecera menu opciones-->
+                    <div class="col-6 col-sm-6 my-auto">
+                        <h2 id="step1" class="CEX-text-blue my-0"><?php echo __('Configuración');?></h2>
+                        <div id="id_version">
+                        </div>
+                        <button id="ejecutarUpdateButton" name="ejecutarUpdateButton" onclick="ejecutarUpdate();"
+                            class="d-none">
+                            <?php echo __('Ejecutar actualizaciones');?>
+                        </button>
+                    </div>
+                    <div class="col-6 col-sm-6 text-right my-0">
+                        <img class="img-fluid w-50"
+                            src="<?php echo $block->getViewFileUrl('CorreosExpress_RegistroDeEnvios::images/correosexpress.png');?>">
+                    </div>
+                </div>
+                <div class="row mb-5 d-flex align-items-center">
+                    <div class="col-12 col-sm-12">
+                        <div id="CEX-manualInteractivo" class="CEX-manual">
+                            <fieldset class="rounded CEX-background-white border CEX-border-blue px-3">
+                                <legend
+                                    class="p-2 ml-2 CEX-background-blue CEX-text-white rounded w-auto border CEX-border-primary mb-3">
+                                    <?php echo __('Manual interactivo');?>
+                                </legend>
+                                <div id="contenidoManual" class="form-group mb-3 w-auto d-flex">
+                                    <input id="toggleIntroJS" checked type="checkbox" class="form-control mt-1 my-auto before before"
+                                        onchange="checkIntroJS();">
+                                    <label for="toggleIntroJS"
+                                        class="m-0 my-auto mr-1 mr-sm-5 CEX-text-blue"><?php echo __('Activar / Desactivar');?></label>
+                                    <button id="manualInteractivo" class="px-2 CEX-btn btn-large CEX-button-info my-auto"
+                                        href="javascript:void(0)" onclick="introConfiguracionTPL();">
+                                        <?php echo __('Manual interactivo');?>
+                                    </button>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div id="CEX-manualCodigoCliente" class="CEX-manual d-none">
+                            <fieldset class="rounded CEX-background-bluelight2 border-0 px-3">
+                                <legend
+                                    class="p-2 ml-2 CEX-background-blue CEX-text-white rounded w-auto border CEX-border-primary mb-3">
+                                    <?php echo __('Manual Edición Código Cliente');?>
+                                </legend>
+                                <div id="contenidoManual" class="form-group mb-3 w-auto d-flex">
+                                    <input id="toggleCodigoClienteJS" checked type="checkbox"
+                                        class="form-control mt-1 my-auto before" onchange="checkEdicionCodigoClienteJS();">
+                                    <label for="toggleCodigoClienteJS"
+                                        class="m-0 my-auto mr-5 CEX-text-blue"><?php echo __('Activar / Desactivar');?></label>
+                                    <button id="manualCodigoCliente" class="px-2 CEX-btn btn-large CEX-button-info my-auto"
+                                        href="javascript:void(0)" onclick="buttonIntroEdicionCodigoCliente();">
+                                        <?php echo __('Manual interactivo');?>
+                                    </button>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div id="CEX-manualRemitente" class="CEX-manual d-none">
+                            <fieldset class="rounded CEX-background-bluelight2 border-0 px-3">
+                                <legend
+                                    class="p-2 ml-2 CEX-background-blue CEX-text-white rounded w-auto border CEX-border-primary mb-3">
+                                    <?php echo __('Manual Edición Remitente');?>
+                                </legend>
+                                <div id="contenidoManual" class="form-group mb-3 w-auto d-flex">
+                                    <input id="toggleRemitenteJS" checked type="checkbox"
+                                        class="form-control mt-1 my-auto before" onchange="checkEdicionRemitenteJS();">
+                                    <label for="toggleRemitenteJS"
+                                        class="m-0 my-auto mr-2 mr-sm-5 CEX-text-blue"><?php echo __('Activar / Desactivar');?></label>
+                                    <span id="manualRemitente" class="CEX-btn btn-large CEX-button-red my-auto"
+                                        href="javascript:void(0)" onclick="buttonIntroEdicionRemitente();">
+                                        <?php echo __('Manual interactivo');?>
+                                    </span>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <!--Fin cabecera menu opciones-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="ajustes" class="CEX-container container mt-1 pr-sm-5">
+        <div class="row mt-1">
+            <div class="col-12 col-md-12 col-lg-12 CEX-paneles">
+                <!--Contenedor de codigos de cliente-->
+                <div class="accordion CEX-panel CEX-panel-primary">
+                    <div class="card m-0 p-0 w-100 mw-100 border-0">
+                        <div class="card-header m-0 p-0 CEX-panel-heading" id="step2">
+                            <a class="mb-0 CEX-text-white p-2 d-block" data-toggle="collapse"
+                                data-target="#panel_codigo_cliente" aria-expanded="true"
+                                aria-controls="panel_codigo_cliente" onclick="animacionBoton('#panel_codigo_cliente');">
+                                <?php echo __('GESTIONAR CÓDIGOS DE CLIENTE');?>
+                                <span id="Cex-arrow" class="float-right clickable"><i
+                                        class="fas fa-chevron-down"></i></span>
+                            </a>
+                            <span id="iconCodigoCliente" class="CEX-iconoInfo"
+                                title="Hacer click para ver el manual de esta sección"><i
+                                    class="fas fa-info-circle"
+                                    onclick="checkIntroCodigoCliente('#panel_codigo_cliente');"></i></span>
+                        </div>
+
+                        <div id="panel_codigo_cliente" class="collapse" aria-labelledby="panel_codigo_cliente"
+                            data-parent="">
+                            <div class="card-body">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-12 col-lg-5">
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span
+                                                        class="input-group-text"><?php echo __('Código cliente');?></span>
+                                                </div>
+                                                <input class="form-control rounded-left-0 rounded-right m-0"
+                                                    type="text" id="customer_code" name='customer_code' maxlength="9" minlength="9"
+                                                    placeholder="<?php echo __('Código cliente'); ?>">
+                                                <input class="form-control rounded-left-0 rounded-right m-0"
+                                                    type="hidden" id="code_demand" name='code_demand'>
+                                            </div>
+                                            <button id="guardar_cod_cliente"
+                                                class="CEX-btn CEX-button-yellow mx-auto my-3"
+                                                onclick='guardarCodigoCliente();'>
+                                                <?php echo __('Añadir códigos') ;?>
+                                            </button>
+                                            <input type="hidden" id="urlAjax" value="<?php echo $this->getUrl('registrodeenvios/Ajustes/Ajax');?>"/>
+                                            <input type="hidden" id="urlDescargas" value="<?php echo $this->getUrl('registrodeenvios/Ajustes/Download');?>"/>
+                                            <?php echo $block->getBlockHtml('formkey');?>
+                                        </div>
+                                        <div class="col-12 col-lg-7">
+                                            <div class="row">
+                                                <div id="saved_codes"
+                                                    class="col-12 CEX-border-blue rounded p-0 overflow-hidden">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion CEX-panel CEX-panel-primary">
+                    <div class="card m-0 p-0 w-100 mw-100 border-0">
+                        <div class="card-header m-0 p-0 CEX-panel-heading" id="step3">
+                            <a class="mb-0 CEX-text-white p-2 d-block" data-toggle="collapse"
+                                data-target="#panel_remitentes" aria-expanded="true" aria-controls="panel_remitentes"
+                                onclick="animacionBoton('#panel_remitentes');">
+                                <?php echo __('REMITENTES');?>
+                                <span id="Cex-arrow" class="float-right clickable"><i
+                                        class="fas fa-chevron-down"></i></span>
+                            </a>
+                            <span id="iconRemitente" class="CEX-iconoInfo"
+                                title="Hacer click para ver el manual de esta sección"><i
+                                    class="fas fa-info-circle" onclick="checkIntroRemitente();"></i></span>
+                        </div>
+
+                        <div id="panel_remitentes" class="collapse" aria-labelledby="panel_remitentes" data-parent="">
+                            <div class="card-body p-0 pb-3">
+                                <div class="container-fluid">
+                                    <form id="formCrearRemt" class="w-100" onsubmit="return false">
+                                        <div class="row CEX-background-bluelight2 px-1 py-4 mb-3 mt-0 rounded-0">
+                                            <div class="col-8 offset-lg-2">
+                                                <div id="div_codigo_cliente" class="input-group my-3">
+                                                    <div class="input-group-prepend">
+                                                        <span
+                                                            class="input-group-text"><?php echo __('Código cliente');?></span>
+                                                    </div>
+                                                    <select id="codigo_cliente" name="codigo_cliente"
+                                                        class="form-control rounded-left-0 rounded-right m-0"
+                                                        required></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="datosRemitente" class="row">
+                                            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                                <div class="input-group my-3">
+                                                    <div class="input-group-prepend">
+                                                        <span
+                                                            class="input-group-text"><?php echo __('Nombre remitente');?></span>
+                                                    </div>
+                                                    <input id="name_sender" name="name_sender"
+                                                        class="form-control rounded-left-0 rounded-right m-0"
+                                                        type="text"
+                                                        placeholder="<?php echo __('Nombre remitente');?>"
+                                                        required>
+                                                </div>
+                                                <div class="input-group my-3">
+                                                    <div class="input-group-prepend">
+                                                        <span
+                                                            class="input-group-text"><?php echo __('Persona contacto');?></span>
+                                                    </div>
+                                                    <input class="form-control rounded-left-0 rounded-right m-0"
+                                                        type="text" id="contact_sender" name="contact_sender"
+                                                        placeholder="<?php echo __('Persona contacto');?>"
+                                                        required>
+                                                </div>
+                                                <div class="input-group my-3">
+                                                    <div class="input-group-prepend">
+                                                        <span
+                                                            class="input-group-text"><?php echo __('Dirección recogida');?></span>
+                                                    </div>
+                                                    <input id="address_sender" name="address_sender"
+                                                        class="form-control rounded-left-0 rounded-right m-0"
+                                                        type="text"
+                                                        placeholder="<?php echo __('Dirección recogida');?>"
+                                                        required>
+                                                </div>
+                                                <div class="input-group my-3">
+                                                    <div class="input-group-prepend">
+                                                        <span
+                                                            class="input-group-text"><?php echo __('Población');?></span>
+                                                    </div>
+                                                    <input id="city_sender" name="city_sender"
+                                                        class="form-control rounded-left-0 rounded-right m-0"
+                                                        type="text" placeholder="Población" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                                <div class="input-group my-3">
+                                                    <div class="input-group-prepend">
+                                                        <span
+                                                            class="input-group-text"><?php echo __('Código Postal');?></span>
+                                                    </div>
+                                                    <input id="postcode_sender" name="postcode_sender"
+                                                        class="form-control rounded-left-0 rounded-right m-0"
+                                                        pattern="\d*"
+                                                        placeholder="<?php echo __('Código Postal');?>"
+                                                        maxlength="8" type="text" required>
+                                                </div>
+                                                <div class="input-group my-3">
+                                                    <div class="input-group-prepend">
+                                                        <span
+                                                            class="input-group-text"><?php echo __('País');?></span>
+                                                    </div>
+                                                    <select id="country_sender" name="country_sender"
+                                                        class="form-control rounded-left-0 rounded-right m-0" required>
+                                                        <option value="ES"><?php echo __("España");?>
+                                                        </option>
+                                                        <option value="PT">
+                                                            <?php echo __("Portugal");?>
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                                <div class="input-group my-3">
+                                                    <div class="input-group-prepend">
+                                                        <span
+                                                            class="input-group-text"><?php echo __('Teléfono');?></span>
+                                                    </div>
+                                                    <input id="phone_sender" name="phone_sender"
+                                                        class="form-control rounded-left-0 rounded-right m-0" type="tel"
+                                                        pattern="\d*" maxlength="9" minlength="9"
+                                                        placeholder="<?php echo __('Teléfono');?>"
+                                                        required>
+                                                </div>
+                                                <div class="input-group my-3">
+                                                    <div class="input-group-prepend">
+                                                        <span
+                                                            class="input-group-text"><?php echo __('Correo electrónico');?></span>
+                                                    </div>
+                                                    <input id="email_sender" name="email_sender"
+                                                        class="form-control rounded-left-0 rounded-right m-0"
+                                                        type="email"
+                                                        placeholder="<?php echo __('Correo electrónico');?>"
+                                                        required>
+                                                </div>
+                                            </div>
+                                            <div id="guardarRemitenteMsn"
+                                                class="col-12 col-sm-12 col-md-12 col-lg-12 d-none text-center">
+                                                <span class="text-danger">
+                                                    <?php echo __('Para guardar los datos del remitente, primero hay que añadir un código de cliente.') ;?>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div id="bloqueHoraDesdeHasta" class="row">
+                                            <div id="introHoraDesde" class="col-12 col-sm-6 col-lg-3 offset-lg-3 mb-3 mb-md-0">
+                                                    <div class="CEX-panel CEX-panel-primary">
+                                                        <div class="CEX-panel-heading">
+                                                            <?php echo __('Desde') ;?>
+                                                        </div>
+                                                        <div class="panel-body py-3">
+                                                            <div class="container-fluid">
+                                                                <div class="row">
+                                                                    <div class="col-6">
+                                                                        <label for="fromHH_sender"
+                                                                            class="control-label d-block"><?php echo __('Hora');?></label>
+                                                                        <input type="number" class="form-control"
+                                                                            id="fromHH_sender" placeholder="0"
+                                                                            value="" size="2" name="fromHH_sender"
+                                                                            min=0 max=24 required>
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <label for="fromMM_sender"
+                                                                            class="control-label d-block"><?php echo __('Minutos') ;?></label>
+                                                                        <input type="number" class="form-control"
+                                                                            id="fromMM_sender" placeholder="0"
+                                                                            value="0" size="2" name="fromMM_sender"
+                                                                            min=0 max=60>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                            <div id="introHoraHasta" class="col-12 col-sm-6 col-md-6 col-lg-3">
+                                                <div class="CEX-panel CEX-panel-primary">
+                                                    <div class="CEX-panel-heading">
+                                                        <?php echo __('Hasta');  ?>
+                                                    </div>
+                                                    <div class="panel-body py-3">
+                                                        <div class="container-fluid">
+                                                            <div class="row">
+                                                                <div class="col-6">
+                                                                        <label for="toHH_sender"
+                                                                            class="control-label d-block"><?php echo __('Hora') ;?></label>
+                                                                        <input type="number"
+                                                                            class="form-control rounded-right"
+                                                                            id="toHH_sender" placeholder="0"
+                                                                            value="" size="2" name="toHH_sender"
+                                                                            min=0 max=24 required>
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    <label for="toMM_sender"
+                                                                            class="control-label d-block"><?php echo __('Minutos');?></label>
+                                                                    <input type="number" class="form-control rounded-right" id="toMM_sender" placeholder="0" value="0" size="2" name="toMM_sender" min=0 max=60>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3 mb-5">
+                                            <div class="col-6 text-right">
+                                                <button id="guardarRemitente" data-toggle="tooltip" data-placement="top"
+                                                title="<?php echo __('Necesitas tener códigos de remitente') ; ?>" name="guardarRemitente"
+                                                 class="CEX-btn CEX-button-success" onclick="crearRemitente(event);">
+                                                    <?php echo __('Guardar') ;?>
+                                                </button>
+                                            </div>
+                                            <div class="col-6 ">
+                                                <button id="cancelar" type="reset" class="CEX-btn CEX-button-cancel">
+                                                    <?php echo __('Cancelar') ; ?>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                    <div>
+                                        <div class="col-12 col-lg-12 my-3">
+                                            <div id="tableSavedSenders" class="p-0 rounded table-responsive CEX-overflow-y-hidden">
+                                                <table cellspacing="0" cellpadding="0" id="savedsenders"
+                                                class="table table-striped m-0">
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                                <!-- prueba remitente-->
+                                   <div class="row CEX-background-bluelight2 pt-3 pb-2">
+                                       <div class="col-12 col-md-6 col-lg-6 offset-lg-2">
+                                           <div class="input-group my-3">
+                                               <div class="input-group-prepend">
+                                                   <span class="input-group-text"><?php echo __('Remitente por defecto'); ?></span>
+                                               </div>
+                                               <select name="MXPS_DEFAULTSEND" id="MXPS_DEFAULTSEND" class="form-control rounded-left-0  rounded-right m-0" required>
+                                                   <option value="" disabled="disabled">
+                                                       <?php echo __("No hay remitentes dados  de alta");?>
+                                                   </option>
+                                               </select>
+                                           </div>
+                                       </div>
+                                       <div class="col-12 col-md-2 col-lg-2">
+                                           <div class="input-group my-3" id="literalGuardarRemitenteDefecto">
+                                               <span id="guardarRemitenteDefecto" class="CEX-btn CEX-button-yellow d-block" onclick="guardarRemitenteDefecto();">
+                                                   <?php echo __('Guardar Remitente por defecto'   ); ?>
+                                               </span>
+                                           </div>
+                                       </div>
+                                   </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion CEX-panel CEX-panel-primary">
+                    <div class="card m-0 p-0 w-100 mw-100 border-0">
+                        <div class="card-header m-0 p-0 CEX-panel-heading" id="step4">
+                            <a class="mb-0 CEX-text-white p-2 d-block" data-toggle="collapse"
+                                data-target="#panel_usuario" aria-expanded="true" aria-controls="panel_usuario"
+                                onclick="animacionBoton('#panel_usuario');">
+                                <?php echo __('CONFIGURACIÓN DE USUARIO');?>
+                                <span id="Cex-arrow" class="float-right clickable"><i
+                                        class="fas fa-chevron-down"></i></span>
+                            </a>
+                            <span id="iconConfiguracionUsuario" class="CEX-iconoInfo"
+                                title="Hacer click para ver el manual de esta sección"><i
+                                    class="fas fa-info-circle" onclick="checkIntroConfiguracionUsuario();"></i></span>
+                        </div>
+
+                        <div id="panel_usuario" class="collapse" aria-labelledby="panel_usuario" data-parent="">
+                            <div class="card-body p-0 pt-3">
+                                <div class="container-fluid">
+                                    <div id="stepUser0" class="row">
+                                        <div id="stepUser1" class="col-12 col-sm-3 col-md-3 col-lg-3">
+                                            <div class="input-group my-3">
+                                                <div class="input-group-prepend">
+                                                    <span
+                                                        class="input-group-text"><?php echo __('Usuario'); ?></span>
+                                                </div>
+                                                <input class="form-control rounded-left-0 rounded-right m-0" type="text"
+                                                    id="MXPS_USER" name="MXPS_USER"
+                                                    placeholder="<?php echo __('Usuario'); ?>"
+                                                    required>
+                                            </div>
+                                        </div>
+                                        <div id="stepUser2" class="col-12 col-sm-3 col-md-3 col-lg-3">
+                                            <div class="input-group my-3">
+                                                <div class="input-group-prepend">
+                                                    <span
+                                                        class="input-group-text"><?php echo __('Password'); ?></span>
+                                                </div>
+                                                <input class="form-control rounded-left-0 rounded-right m-0"
+                                                    type="password" id="MXPS_PASSWD" name="MXPS_PASSWD"
+                                                    placeholder="<?php echo __('Password'); ?>"
+                                                    required>
+                                            </div>
+                                        </div>
+                                        <div id="stepUser3" class="col-6 col-sm-6 col-md-6 col-lg-4 mt-3 d-none">
+                                            <h6 id="cex_account_title"></h6>
+                                            <span id="cex_username" class="d-inline-block"></span> / <span id="cex_passw" class="d-inline-block"></span>
+                                        </div>
+                                        <div class="col-12 col-sm-3 col-md-3 col-lg-3">
+                                            <button class="btn CEX-button-success my-3" id="guardarCredenciales" onclick="guardarCredenciales();"><?php echo __('Guardar credenciales');?>
+                                            </button>
+                                             <button class="btn CEX-button-success my-3 d-none" id="editarCredenciales" onclick="editarCredenciales();"><?php echo __('Editar Credenciales');?>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div
+                                            class="col-12 col-sm-12 col-md-12 col-lg-12 CEX-background-bluelight2 p-3 my-3 rounded-0 d-none">
+                                            <div id="stepUser3" class="input-group my-3">
+                                                <div class="input-group-prepend">
+                                                    <span
+                                                        class="input-group-text"><?php echo __('URL Web Service (envío)');?></span>
+                                                </div>
+                                                <input class="form-control rounded-left-0 rounded-right m-0" type="text"
+                                                    id="MXPS_WSURL" name="MXPS_WSURL" value=""
+                                                    placeholder="<?php echo __('URL Web Service (envío)');?>"
+                                                    required>
+                                            </div>
+                                            <div id="stepUser4" class="input-group my-3">
+                                                <div class="input-group-prepend">
+                                                    <span
+                                                        class="input-group-text"><?php echo __('URL Web Service (recogida)'); ?></span>
+                                                </div>
+                                                <input class="form-control rounded-left-0 rounded-right m-0" type="text"
+                                                    id="MXPS_WSURLREC" name="MXPS_WSURLREC" value=""
+                                                    placeholder="<?php echo __('URL Web Service (recogida)'); ?>"
+                                                    required>
+                                            </div>
+                                            <div id="stepUser5" class="input-group my-3">
+                                                <div class="input-group-prepend">
+                                                    <span
+                                                        class="input-group-text"><?php echo __('URL Web Service (seguimiento)'); ?></span>
+                                                </div>
+                                                <input class="form-control rounded-left-0 rounded-right m-0" type="text"
+                                                    id="MXPS_WSURLSEG" name="MXPS_WSURLSEG" value=""
+                                                    placeholder="<?php echo __('URL Web Service (seguimiento)'); ?>"
+                                                    required>
+                                            </div>
+                                        </div>
+                                        <div id="stepUser6" class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                            <div class="input-group my-3">
+                                                <div class="input-group-prepend">
+                                                    <span
+                                                        class="input-group-text"><?php echo __('Bultos por defecto'); ?></span>
+                                                </div>
+                                                <input class="form-control rounded-left-0 rounded-right m-0"
+                                                    type="number" id="MXPS_DEFAULTBUL" name="MXPS_DEFAULTBUL"
+                                                    placeholder="<?php echo __('Número de bultos por defecto'); ?>"
+                                                    required>
+                                            </div>
+                                        </div>
+                                        <div id="stepUser7" class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                            <div class="input-group my-3">
+                                                <div class="input-group-prepend">
+                                                    <span
+                                                        class="input-group-text"><?php echo __('Tipo de etiqueta por defecto');?></span>
+                                                </div>
+                                                <select name="MXPS_DEFAULTPDF" id="MXPS_DEFAULTPDF"
+                                                    class="form-control rounded-left-0 rounded-right m-0" required>
+                                                    <option value="1"><?php echo __("Adhesiva");?>
+                                                    </option>
+                                                    <option value="2"><?php echo __("Medio Folio");?>
+                                                    </option>
+                                                    <option value="3">
+                                                        <?php echo __("Térmica");?>
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div id="stepUser8" class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                            <div class="input-group my-3">
+                                                <div class="input-group-prepend">
+                                                    <span
+                                                        class="input-group-text"><?php echo __('Datos de envío para la etiqueta');?></span>
+                                                </div>
+                                                <select name="MXPS_DEFAULTDELIVER" id="MXPS_DEFAULTDELIVER"
+                                                    class="form-control rounded-left-0 rounded-right m-0" required>
+                                                    <option value="ENVIO">
+                                                        <?php echo __("Envío");?>
+                                                    </option>
+                                                    <option value="FACTURACION">
+                                                        <?php echo __("Facturación");?>
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div id="stepUser9" class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                            <div class="input-group my-3">
+                                                <div class="input-group-prepend">
+                                                    <span
+                                                        class="input-group-text"><?php echo __('Método de pago contrareembolso');?></span>
+                                                </div>
+                                                <select name="MXPS_DEFAULTPAYBACK" id="MXPS_DEFAULTPAYBACK"
+                                                    class="form-control rounded-left-0 rounded-right m-0">
+                                                    <option value="ninguno"><?php echo __("Ninguno");?>
+                                                    </option>
+                                                    <option value="cashondelivery">
+                                                        <?php echo __("Pago contrarrembolso");?></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div id="refEtiquetas" class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                            <div class="input-group my-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <?php echo __('Referencias para las ordenes' );?>
+                                                    </span>
+                                                </div>
+                                                <select name="MXPS_REFETIQUETAS" id="MXPS_REFETIQUETAS"
+                                                    class="form-control rounded-left-0 rounded-right m-0">
+                                                    <option value="1"><?php echo __('ID Entidad') ;?></option>
+                                                    <option value="2"><?php echo __('ID Incremental') ;?></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row CEX-background-bluelight2 px-0 my-3 rounded-0">
+                                        <div class="col-12">
+                                            <div id="stepUserLog" class="row">
+                                                <div class="col-12">
+                                                    <div class="input-group my-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><input type="checkbox"
+                                                                                                  class="form-control m-0 before" name="MXPS_CHECK_LOG" id="MXPS_CHECK_LOG"></span>
+                                                        </div>
+                                                        <input readonly type="text"
+                                                               class="form-control rounded-left-0 rounded-right m-0"
+                                                               aria-label="<?php echo __('Activar la generación de archivos de log'); ?>"
+                                                               value="<?php echo __('Activar la generación de archivos de log'); ?>">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div id="stepUser10" class="row">
+                                                <div class="col-12">
+                                                    <div class="input-group my-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><input type="checkbox"
+                                                                    class="form-control m-0 before" name="  MXPS_ENABLESHIPPINGTRACK"
+                                                                    id="MXPS_ENABLESHIPPINGTRACK"></span>
+                                                        </div>
+                                                        <input readonly type="text"
+                                                            class="form-control rounded-left-0 rounded-right m-0"
+                                                            aria-label="Activar enlace de seguimiento en el historial de compras del cliente"
+                                                            value="<?php echo __('Activar enlace de seguimiento en el historial de compras del cliente'); ?>">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div id="obserEtiqueta" class="row">
+                                                <div class="col-12">
+                                                    <div class="input-group my-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><input type="checkbox"
+                                                                    class="form-control m-0 before" name="MXPS_OBSERVATIONS"
+                                                                    id="MXPS_OBSERVATIONS"></span>
+                                                        </div>
+                                                        <input readonly type="text"
+                                                            class="form-control rounded-left-0 rounded-right m-0"
+                                                            aria-label="Añadir observaciones del cliente a la etiqueta"
+                                                            value="<?php echo __('Añadir observaciones del cliente a la etiqueta'); ?>">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div id="trackNumber" class="row">
+                                                <div class="col-12">
+                                                    <div class="input-group my-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><input type="checkbox"
+                                                                    class="form-control m-0 before" name="MXPS_TRACKING"
+                                                                    id="MXPS_TRACKING"></span>
+                                                        </div>
+                                                        <input readonly type="text"
+                                                            class="form-control rounded-left-0 rounded-right m-0"
+                                                            aria-label="Añadir número de envío a la orden"
+                                                            value="<?php echo __('Añadir número de envío a la orden'); ?>">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div id="stepUser11" class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                                    <div class="input-group my-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><input type="checkbox"
+                                                                    class="form-control m-0 before" name="MXPS_LABELSENDER"
+                                                                    id="MXPS_LABELSENDER" onclick="mostrarRemitenteAlternativo();"></span>
+                                                        </div>
+                                                        <input readonly type="text"
+                                                            class="form-control rounded-left-0 rounded-right m-0"
+                                                            aria-label="Quitar remitente de las etiquetas"
+                                                            value="<?php echo __('Quitar remitente de las etiquetas') ;?>">
+                                                    </div>
+                                                </div>
+                                                <div id="remitenteAlt" class="col-12 col-sm-6 col-md-6 col-lg-6 d-none">
+                                                    <div class="input-group my-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><?php echo __('Texto Alternativo'); ?>
+                                                            </span>
+                                                        </div>
+                                                        <input class="form-control rounded-left-0 rounded-right m-0" type="text" id="MXPS_LABELSENDER_TEXT" name="MXPS_LABELSENDER_TEXT" value="" step="0.01">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div id="stepUser12" class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                                    <div class="input-group my-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="MXPS_DEFAULTKG_SPAN">
+                                                                <input type="checkbox" name="MXPS_ENABLEWEIGHT"
+                                                                    id="MXPS_ENABLEWEIGHT" class="form-control m-0 before"
+                                                                    onclick="mostrarPesoDefecto();">
+                                                            </span>
+                                                        </div>
+                                                        <input readonly type="text" class="form-control rounded-left-0 rounded-right m-0"
+                                                            aria-label="<?php echo __('Activar peso por defecto'); ?>"
+                                                            value="<?php echo __('Activar peso por defecto'); ?>">
+                                                    </div>
+                                                </div>
+                                                <div id="pesodefecto" class="col-12 col-sm-6 col-md-6 col-lg-6 d-none">
+                                                    <div class="input-group my-3">
+                                                        <div class="input-group-prepend">
+                                                            <span id="unidadMedida"
+                                                                class="input-group-text"><?php echo __('Peso por defecto '); ?>
+                                                                <span></span>
+                                                            </span>
+                                                        </div>
+                                                        <input class="form-control rounded-left-0 rounded-right m-0"
+                                                            type="number" id="MXPS_DEFAULTKG" name='MXPS_DEFAULTKG' value=""
+                                                            step="0.01">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div id="stepUser14" class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                                    <div class="input-group my-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="MXPS_NODATAPROTECTION_SPAN">
+                                                            <i class="fas fa-info-circle"
+                                                                    data-toogle="tooltip" title="<?php echo __('Información legal pertinente a mostrar' );?>"></i>
+                                                                <input type="checkbox" name="MXPS_NODATAPROTECTION"
+                                                                    id="MXPS_NODATAPROTECTION" class="form-control m-0 ml-1 before"
+                                                                    onchange="mostrarProteccionDatos();">
+                                                            </span>
+                                                        </div>
+                                                        <input readonly type="text" class="form-control rounded-left-0 rounded-right m-0" aria-label="<?php echo __('Acepto alterar la referencia de los productos en los envios.' );?>"
+                                                        value="<?php echo __('Acepto alterar la referencia de los productos en los envios.' );?>">
+                                                    </div>
+                                                </div>
+                                                <div id="proteccionDatos" class="col-12 col-sm-6 col-md-6 col-lg-6 d-none">
+                                                    <div class="input-group my-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                                <?php echo __('Datos a mostrar en etiqueta' );?>
+                                                            </span>
+                                                        </div>
+                                                        <select name="MXPS_DATAPROTECTIONVALUE" id="MXPS_DATAPROTECTIONVALUE"
+                                                            class="form-control rounded-left-0 rounded-right m-0">
+                                                            <option value="1"><?php echo __('ID' );?></option>
+                                                            <option value="2"><?php echo __('NOMBRE' );?></option>
+                                                            <option value="3"><?php echo __('VACÍO' );?></option>
+                                                            <option value="4"><?php echo __('SKU' );?></option>
+                                                        </select>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div id="stepUser13" class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                                    <div class="input-group my-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="MXPS__SPAN">
+                                                                <input type="checkbox" name="MXPS_CHECKUPLOADFILE"
+                                                                    id="MXPS_CHECKUPLOADFILE" class="form-control m-0 before">
+                                                            </span>
+                                                        </div>
+                                                        <input readonly type="text" class="form-control rounded-left-0 rounded-right m-0"
+                                                            aria-label="<?php echo __('Cambiar Logo de las Etiquetas') ;?>" value="<?php echo __('Cambiar Logo de las Etiquetas') ;?>">
+                                                    </div>
+                                                </div>
+                                                <div id="mostrarLogo" class="col-12 col-sm-6 col-md-6 col-lg-6 d-none">
+                                                    <div class="input-group my-3">
+                                                        <div>
+                                                            <div class="d-none">
+                                                                <input type="file" id="MXPS_UPLOADFILE" name="MXPS_UPLOADFILE" class="CEX-file-input">
+                                                            </div>
+                                                        </div>
+                                                        <div id="mostrarImagenLogo" class="d-none">
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend" id="divImagenLogo">
+                                                                    <img class="img-logo w-50" id="imagenLogoEtiqueta" src="">
+                                                                    <div class="row d-block">
+                                                                        <div class="col">
+                                                                            <i class="fas fa-file-upload fa-2x ml-3 mt-2 CEX-text-blue" data-toogle="tooltip" title="<?php echo __('Cambiar Imagen') ;?>" onclick="abrirBuscarImagen();"></i>
+                                                                        </div>
+                                                                        <div class="col">
+                                                                            <i class="fas fa-trash-alt fa-2x ml-3 mt-2 text-danger" data-toogle="tooltip" title="<?php echo __('Eliminar Imagen') ;?>" onclick="eliminarImagen();"></i>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-5 mb-3">
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                            <button id="guardarDatosCliente" class="CEX-btn CEX-button-yellow"
+                                                onclick="guardarDatosUser();">
+                                                <?php echo __('Guardar datos de cliente');?>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion CEX-panel CEX-panel-primary">
+                    <div class="card m-0 p-0 w-100 mw-100 border-0">
+                        <div class="card-header m-0 p-0 CEX-panel-heading" id="step5">
+                            <a class="mb-0 CEX-text-white p-2 d-block" data-toggle="collapse"
+                                data-target="#panel_metodos_cron" aria-expanded="true"
+                                aria-controls="panel_metodos_cron" onclick="animacionBoton('#panel_metodos_cron');">
+                                <?php echo __('OPCIONES CRON');?>
+                                <span id="Cex-arrow" class="float-right clickable"><i
+                                        class="fas fa-chevron-down"></i></span>
+                            </a>
+                            <span id="iconCron" class="CEX-iconoInfo"
+                                title="Hacer click para ver el manual de esta sección"><i
+                                    class="fas fa-info-circle" onclick="checkIntroOpcionesCron();"></i></span>
+                        </div>
+
+                        <div id="panel_metodos_cron" class="collapse" aria-labelledby="panel_metodos_cron"
+                            data-parent="">
+                            <div class="card-body p-0 pt-3">
+                                <div class="container-fluid">
+                                    <form id="formDatosCron" class="w-100">
+                                        <div id="datosCron" class="row">
+                                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 CEX-background-bluelight2 p-3 my-1 rounded-0">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text rounded-left">
+                                                            <?php echo __('Tipo de ejecución del cron');?>
+                                                        </span>
+                                                    </div>
+                                                    <select name="MXPS_CRONTYPE" id="MXPS_CRONTYPE" class="form-control rounded-left-0 rounded-right m-0" required="">
+                                                        <option value="cron"  selected="">Cron</option>
+                                                        <option value="ajax">Ajax Request</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12 col-sm-12 col-md-12 col-lg-12" id="MXPS_SAVEDSTATUS_SPAN">
+                                                <div class="input-group my-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <input type="checkbox" name="MXPS_SAVEDSTATUS"
+                                                                id="MXPS_SAVEDSTATUS" class="form-control m-0 before"
+                                                                onclick="mostrarEstadoGrabacion();">
+                                                        </span>
+                                                    </div>
+                                                    <input readonly type="text"
+                                                        class="form-control rounded-left-0 rounded-right m-0"
+                                                        aria-label="<?php echo __('Activar cambio de estado de la orden tras grabación');?>"
+                                                        value="<?php echo __('Activar cambio de estado de la orden tras grabación');?>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="estado_grabacion" class="row d-none">
+                                            <div
+                                                class="col-12 col-sm-12 col-md-12 col-lg-12 CEX-background-bluelight2 p-3 my-1 rounded-0">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text rounded-left">
+                                                            <?php echo __('Estado del pedido tras la grabación');?>
+                                                        </span>
+                                                    </div>
+                                                    <select name="MXPS_RECORDSTATUS" id="MXPS_RECORDSTATUS"
+                                                        class="form-control rounded-left-0 rounded-right m-0" required>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12 col-sm-12 col-md-12 col-lg-12" id="MXPS_TRACKINGCEX_SPAN">
+                                                <div class="input-group my-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i id="info1" class="fas fa-info-circle"
+                                                                data-toogle="tooltip"></i>
+                                                            <input type="checkbox" name="MXPS_TRACKINGCEX"
+                                                                id="MXPS_TRACKINGCEX" class="form-control m-0 ml-1 before"
+                                                                onchange="activarCambioEstado();">
+                                                        </span>
+                                                    </div>
+                                                    <input readonly type="text"
+                                                        class="form-control rounded-left-0 rounded-right m-0"
+                                                        aria-label="Activar tracking automático"
+                                                        value="<?php echo __('Activar tracking automático');?>">
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                                <div class="input-group my-3 offset-1" id="MXPS_CHANGESTATUS_SPAN" style="width: 91.7%;">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i id="info2" class="fas fa-info-circle"
+                                                                data-toogle="tooltip"></i>
+                                                            <input type="checkbox" name="MXPS_CHANGESTATUS"
+                                                                onclick="mostrarEstadosCron();"
+                                                                class="form-control m-0 ml-1 before" id="MXPS_CHANGESTATUS">
+                                                        </span>
+                                                    </div>
+                                                    <input readonly type="text"
+                                                        class="form-control rounded-left-0 rounded-right m-0"
+                                                        aria-label="Activar cambio de estado de la orden"
+                                                        value="<?php echo __('Activar cambio de estado de la orden');?>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="estados_cron"
+                                            class="row jumbotron CEX-background-bluelight2 p-4 my-3 rounded-0 d-none">
+                                            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                                <div class="input-group my-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text rounded-left">
+                                                            <?php echo __('Estado en curso');?>
+                                                        </span>
+                                                    </div>
+                                                    <select name="MXPS_SENDINGSTATUS" id="MXPS_SENDINGSTATUS"
+                                                        class="form-control rounded-left-0 rounded-right m-0" required>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                                <div class="input-group my-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text rounded-left">
+                                                            <?php echo __('Estado Entregado');?>
+                                                        </span>
+                                                    </div>
+                                                    <select name="MXPS_DELIVEREDSTATUS" id="MXPS_DELIVEREDSTATUS"
+                                                        class="form-control rounded-left-0 rounded-right m-0" required>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                                <div class="input-group my-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text rounded-left">
+                                                            <?php echo __('Estado Anulado');?>
+                                                        </span>
+                                                    </div>
+                                                    <select name="MXPS_CANCELEDSTATUS" id="MXPS_CANCELEDSTATUS"
+                                                        class="form-control rounded-left-0 rounded-right m-0" required>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                                <div class="input-group my-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text rounded-left">
+                                                            <?php echo __('Estado Devuelto');?>
+                                                        </span>
+                                                    </div>
+                                                    <select name="MXPS_RETURNEDSTATUS" id="MXPS_RETURNEDSTATUS"
+                                                        class="form-control rounded-left-0 rounded-right m-0" required>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="botonesLogCron" class="row mt-5 mb-3">
+                                            <div class="col-6">
+                                            <label class="font-size16 d-block"><?php echo __('Descarga de informes:');?></label>
+                                                <a id="generarArchivoCronLog" name="generarArchivoCronLog" class="CEX-btn CEX-button-info mt-2" onclick="generar_archivos('log_cron');"><?php echo __('Cron');?>
+                                                    </a>
+                                                    <a id="generarArchivoPeticionCron" name="generarArchivoPeticionCron" class="CEX-btn CEX-button-info mt-2"onclick="generar_archivos('peticion');"><?php echo __('Ordenes');?>
+                                                    </a>
+                                                    <a id="generarArchivoRespuestaCron" name="generarArchivoRespuestaCron" class="CEX-btn btn-large CEX-button-info mt-2" onclick="generar_archivos('respuesta');"> <?php echo __('Respuesta WS');?>
+                                                    </a>
+                                                    <a id="descarga" href="<?php echo $this->getUrl('registrodeenvios/Ajustes/Ajax');?>" download class='d-none'></a>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-5 mb-3">
+                                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                                <button id="guardarDatosCron" data-toggle="tooltip" data-placement="top"
+                                                name="guardarDatosCron"
+                                                class="CEX-btn CEX-button-yellow" onclick="guardarDatosCronCex(event);">
+                                                    <?php echo __('Guardar configuración Cron');?>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion CEX-panel CEX-panel-primary">
+                    <div class="card m-0 p-0 w-100 mw-100 border-0">
+                        <div class="card-header m-0 p-0 CEX-panel-heading" id="step6">
+                            <a class="mb-0 CEX-text-white p-2 d-block" data-toggle="collapse"
+                                data-target="#panel_productos_cex" aria-expanded="true"
+                                aria-controls="panel_productos_cex" onclick="animacionBoton('#panel_productos_cex');">
+                                <?php echo __('PRODUCTOS CEX');?>
+                                <span id="Cex-arrow" class="float-right clickable"><i
+                                        class="fas fa-chevron-down"></i></span>
+                            </a>
+                            <span id="iconProductos" class="CEX-iconoInfo"
+                                title="Hacer click para ver el manual de esta sección"><i
+                                    class="fas fa-info-circle" onclick="checkIntroProductosCEX();"></i></span>
+                        </div>
+
+                        <div id="panel_productos_cex" class="collapse" aria-labelledby="panel_productos_cex"
+                            data-parent="">
+                            <div class="card-body">
+                                <div class="container-fluid my-3">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                            <div class="form-group" id="productos_cex">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-5 mb-3">
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                            <button id="guardarProductosCex" class="CEX-btn CEX-button-yellow"
+                                                onclick="guardarProductosCex();">
+                                                <?php echo __('Guardar productos');?>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion CEX-panel CEX-panel-primary">
+                    <div class="card m-0 p-0 w-100 mw-100 border-0">
+                        <div class="card-header m-0 p-0 CEX-panel-heading" id="step7">
+                            <a class="mb-0 CEX-text-white p-2 d-block" data-toggle="collapse"
+                                data-target="#panel_relacion_trans" aria-expanded="true"
+                                aria-controls="panel_relacion_trans" onclick="animacionBoton('#panel_relacion_trans');">
+                                <?php echo __('RELACIONAR ZONAS DE ENVÍO Y TRANSPORTISTAS');?>
+                                <span id="Cex-arrow" class="float-right clickable"><i
+                                        class="fas fa-chevron-down"></i></span>
+                            </a>
+                            <span id="iconRelacionTransportistas" class="CEX-iconoInfo"
+                                title="<?php echo __('Hacer click para ver el manual de esta sección');?>"><i
+                                    class="fas fa-info-circle" onclick="checkIntroZonasTransportistas();"></i></span>
+                        </div>
+
+                        <div id="panel_relacion_trans" class="collapse" aria-labelledby="panel_relacion_trans"
+                            data-parent="">
+                            <div class="card-body p-0">
+                                <div class="container-fluid mb-3">
+                                    <form id="transportistas"></form>
+                                    <div class="row mt-2 mb-3">
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                            <button id="guardarTransportistas" class="CEX-btn CEX-button-yellow"
+                                                onclick='mapear_transportistas();'>
+                                                <?php echo __('Guardar relaciones de transportistas');?>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="acordeonSoporte" class="accordion CEX-panel CEX-panel-primary">
+                    <div class="card m-0 p-0 w-100 mw-100 border-0">
+                        <div class="card-header m-0 p-0 CEX-panel-heading" id="step8">
+                            <a class="mb-0 CEX-text-white p-2 d-block" data-toggle="collapse"
+                                data-target="#panel_soporte" aria-expanded="true"
+                                aria-controls="panel_soporte" onclick="animacionBoton('#panel_soporte');">
+                                <?php echo __('SOPORTE');?>
+                                <span id="Cex-arrow" class="float-right clickable"><i
+                                        class="fas fa-chevron-down"></i></span>
+                            </a>
+                            <span id="iconSoporte" class="CEX-iconoInfo"
+                                title="<?php echo __('Hacer click para ver el manual de esta sección');?>"><i
+                                    class="fas fa-info-circle" onclick="checkIntroSoporte();"></i></span>
+                        </div>
+
+                        <div id="panel_soporte" class="collapse" aria-labelledby="panel_soporte"
+                            data-parent="">
+                            <div class="card-body p-0">
+                                <div class="container-fluid mb-3">
+                                    <div class="row mt-5 mb-3">
+                                        <div id="buttonHistorico" class="col-6">
+                                            <label class="font-size16 d-block"><?php echo __('Descarga de informes de las bases de datos:');?></label>
+                                            <div class="form-group my-2 d-flex">
+                                                <select class="form-control rounded-left-0 rounded-right mr-2" style="width: 30%;" id="datos_tablas" name="datos_tablas" required>
+                                                    <option value="cex_savedships"><?php echo __('Savedships');?></option>
+                                                    <option value="cex_history"><?php echo __('History');?></option>
+                                                    <option value="cex_migrations"><?php echo __('Migrations');?></option>
+                                                </select>
+                                                <button id="buttonBBDD" class="px-2 CEX-btn btn-large CEX-button-info my-auto d-block" onclick="generarLogBBDD();" download>
+                                                    <?php echo __('Descargar');?>
+                                                </button>
+                                            </div>
+                                            <a id="descargaBBDD" href="<?php echo $this->getUrl('registrodeenvios/Ajustes/Download');?>" download d-none></a>
+                                        </div>
+                                        <div id="shb_cex" class="col-6 d-none">
+                                            <div id="botonCron">
+                                                <input type="button" id="botonCron" onclick="ejecutarCron()" value="Ejecutar Cron" class="CEX-btn  CEX-button-info">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- JAVASCRIPT -->
+    <!--VENTANAS MODALES -->
+    <!-- Trigger the modal with a button -->
+    <button type="button" data-toggle="modal" data-target="#modal_codigo_cliente" id="modal2" class="d-none"></button>
+    <!-- Modal -->
+    <div id="modal_codigo_client" class="CEX-container CEX-paneles container  mt-1 mb-3 pr-5 d-none" role="dialog">
+        <div class="row">
+            <div class="CEX-background-bluelight2 CEX-text-blue p-3 rounded col-12">
+                <div class="modal-header border-0">
+                    <h4 class="modal-title text-center CEX-text-blue">
+                        <?php echo __("Actualizar código de cliente");?>
+                    </h4>
+                </div>
+                <div class="modal-body pb-0">
+                    <input type="hidden" name="id_cod_cliente_modal" id="id_cod_cliente_modal">
+                    <input type="hidden" name="code_demand_modal" id="code_demand_modal">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text rounded-left">
+                                <?php echo __("Código Cliente");?></span>
+                        </div>
+                        <input class="form-control rounded-left-0 rounded-right m-0" type="text" maxlength="9" minlength="9"
+                            id="codigo_cliente_modal" name="codigo_cliente_modal">
+                    </div>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" id="guardar_modal_codigo" class="CEX-btn CEX-button-success"
+                        onclick="actualizarCodigoCliente();">
+                        <?php echo __("Guardar");?></button>
+                    <button type="button" id="cerrar_modal_codigo" name="cerrar_modal_codigo"
+                        class="CEX-btn CEX-button-red"
+                        onclick="borrarModalCodigoCliente();"><?php echo __("Cerrar");?></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Trigger the modal with a button -->
+    <button type="button" data-toggle="modal" data-target="#remitente" id="modal" class="d-none"></button>
+    <!-- Modal -->
+
+    <div id="remitente" class="CEX-container CEX-paneles container  mt-1 mb-3 pr-5 d-none" role="dialog">
+        <div class="row">
+            <div class="CEX-background-bluelight2 CEX-text-blue p-3 rounded col-12">
+                <!-- Modal content-->
+                <div class="modal-header border-0">
+                    <h4 class="modal-title text-center CEX-text-blue">
+                        <?php echo __("Actualizar remitente");?>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form id="formUpdateRemt" onsubmit="return false">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="input-group my-3">
+                                        <input type="hidden" name="id_modal" id="id_modal">
+                                        <div class="input-group-prepend">
+                                            <span
+                                                class="input-group-text rounded-left"><?php echo __('Código cliente');?></span>
+                                        </div>
+                                        <input disabled type="text"
+                                            class="form-control rounded-left-0 rounded-right m-0"
+                                            id="remitente_codigo_cliente_modal" name="remitente_codigo_cliente_modal"
+                                            required>
+                                    </div>
+                                    <div class="input-group my-3">
+                                        <div class="input-group-prepend">
+                                            <span
+                                                class="input-group-text rounded-left"><?php echo __('Nombre remitente');?></span>
+                                        </div>
+                                        <input type="text" class="form-control rounded-left-0 rounded-right m-0"
+                                            id="name_sender_modal" name="name_sender_modal"
+                                            placeholder="<?php echo __('Nombre remitente');?>"
+                                            required>
+                                    </div>
+                                    <div class="input-group my-3">
+                                        <div class="input-group-prepend">
+                                            <span
+                                                class="input-group-text rounded-left"><?php echo __('Persona contacto');?></span>
+                                        </div>
+                                        <input type="text" class="form-control rounded-left-0 rounded-right m-0"
+                                            id="contact_sender_modal" name="contact_sender_modal"
+                                            placeholder="<?php echo __('Persona contacto');?>"
+                                            required>
+                                    </div>
+                                    <div class="input-group my-3">
+                                        <div class="input-group-prepend">
+                                            <span
+                                                class="input-group-text rounded-left"><?php echo __('Dirección recogida');?></span>
+                                        </div>
+                                        <input type="text" class="form-control rounded-left-0 rounded-right m-0"
+                                            id="address_sender_modal" name="address_sender_modal"
+                                            placeholder="<?php echo __('Dirección recogida');?>"
+                                            required>
+                                    </div>
+                                    <div class="input-group my-3">
+                                        <div class="input-group-prepend">
+                                            <span
+                                                class="input-group-text rounded-left"><?php echo __('Población');?></span>
+                                        </div>
+                                        <input type="text" class="form-control rounded-left-0 rounded-right m-0"
+                                            id="city_sender_modal" name="city_sender_modal"
+                                            placeholder="<?php echo __('Población');?>"
+                                            required>
+                                    </div>
+                                    <div class="input-group my-3">
+                                        <div class="input-group-prepend">
+                                            <span
+                                                class="input-group-text rounded-left"><?php echo __('Código Postal');?></span>
+                                        </div>
+                                        <input type="text" class="form-control rounded-left-0 rounded-right m-0"
+                                            id="postcode_sender_modal" name="postcode_sender_modal" pattern="\d*"
+                                            placeholder="<?php echo __('Código Postal');?>"
+                                            maxlength="8" required>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="input-group my-3">
+                                        <div class="input-group-prepend">
+                                            <span
+                                                class="input-group-text rounded-left"><?php echo __('País') ;?></span>
+                                        </div>
+                                        <select class="form-control rounded-left-0 rounded-right m-0"
+                                            id="country_sender_modal" name="country_sender_modal" required>
+                                            <option value="ES"><?php echo __("España");?></option>
+                                            <option value="PT"><?php echo __("Portugal");?></option>
+                                        </select>
+                                    </div>
+                                    <div class="input-group my-3">
+                                        <div class="input-group-prepend">
+                                            <span
+                                                class="input-group-text rounded-left"><?php echo __('Teléfono');?></span>
+                                        </div>
+                                        <input type="tel" class="form-control rounded-left-0 rounded-right m-0"
+                                            id="phone_sender_modal" name="phone_sender_modal" pattern="\d*"
+                                            minlength="9" maxlength="9"
+                                            placeholder="<?php echo __('Teléfono');?>"
+                                            required>
+                                    </div>
+                                    <div class="input-group my-3">
+                                        <div class="input-group-prepend">
+                                            <span
+                                                class="input-group-text rounded-left"><?php echo __('Correo electrónico');?></span>
+                                        </div>
+                                        <input type="email" class="form-control rounded-left-0 rounded-right m-0"
+                                            id="email_sender_modal" name="email_sender_modal"
+                                            placeholder="<?php echo __('Correo electrónico');?>"
+                                            required>
+                                    </div>
+                                    <div id="EdicionHoras" class="row">
+                                        <div id="EdicionHoraDesde" class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                            <div class="CEX-panel CEX-panel-primary">
+                                                <div class="CEX-panel-heading">
+                                                    <?php echo __('Desde') ;?>
+                                                </div>
+                                                <div class="panel-body py-3">
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                                <label for="fromHH_sender"
+                                                                    class="control-label d-block"><?php echo __('Hora');?></label>
+                                                                <input type="number" class="form-control"
+                                                                    id="fromHH_sender_modal" placeholder="0" value=""
+                                                                    size="2" name="fromHH_sender_modal" min="0" max="24"
+                                                                    required>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <label for="fromMM_sender"
+                                                                    class="control-label d-block"><?php echo __('Minutos') ;?></label>
+                                                                <input type="number" class="form-control"
+                                                                    id="fromMM_sender_modal" placeholder="0" value="0"
+                                                                    size="2" name="fromMM_sender_modal" min="0"
+                                                                    max="60">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="EdicionHoraHasta" class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                            <div class="CEX-panel CEX-panel-primary">
+                                                <div class="CEX-panel-heading">
+                                                    <?php echo __('Hasta');  ?></div>
+                                                <div class="panel-body py-3">
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                                <label for="toHH_sender"
+                                                                    class="control-label d-block"><?php echo __('Hora') ;?></label>
+                                                                <input type="number" class="form-control"
+                                                                    id="toHH_sender_modal" placeholder="0" value=""
+                                                                    size="2" name="toHH_sender_modal" min="0" max="24"
+                                                                    required>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <label for="toMM_sender"
+                                                                    class="control-label d-block"><?php echo __('Minutos');?></label>
+                                                                <input type="number" class="form-control"
+                                                                    id="toMM_sender_modal" placeholder="0" value="0"
+                                                                    size="2" name="toMM_sender_modal" min="0" max="60">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer border-0 text-center">
+                    <button type="button" id="guardar_modal_remitente" class="CEX-btn CEX-button-success"
+                        onclick='actualizarRemitente();'><?php echo __("Guardar");?> </button>
+                    <button type="button" id="cerrar_modal_remitente" class="CEX-btn CEX-button-red"
+                        onclick="borrarModalRemitente();"
+                        data-dismiss="modal"><?php echo __("Cerrar");?></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+
+    var step1 = "<?php echo __('Este es la sección de configuración para módulo de correos express. Es la parte mas importante de nuestro módulo y su correcto funcionamiento depende de ella.');?>";
+    var step2 = "<?php echo __('Gestión de código de cliente, un código activo por tienda. El código de cliente activo se determina mediante el Remitente por defecto de cada tienda.');?>";
+    var step3 = "<?php echo __('Gestión de remitentes, podrás tener todos los que quieras. Cada tienda tendrá solo uno activo, que se determinará con el Remitente por defecto.');?>";
+    var step4 = "<?php echo __('Configuración de usuario, única para todas las tiendas.');?>";
+    var step5 = "<?php echo __('Este apartado nos permitirá configurar los cambios de estado automáticos para nuestros pedidos, único para todas las tiendas.');?>";
+    var step6 = "<?php echo __('Listado de los productos que tiene a su disposición Correos Express. Una selección de productos por tienda.');?>";
+    var step7 = "<?php echo __('Apartado en el que vincularemos los transportistas con nuestros productos. Solo apareceran los transportistas vinculados a la tienda en curso.');?>";
+    var step8 = "<?php echo __('Apartado de soporte para la descarga de informes de utilidad.');?>";
+
+    // Configuración de usuario
+    var stepUser3 = "<?php echo __('Apartado en el que guardamos las credenciales facilitadas por Correos Express. En caso de no disponer de él, pongase en contacto con Correos Express.');?>";
+    /*
+    var stepUser2 = "<?php echo __('Credencial facilitada por Correos Express. En caso de no disponer de ella, pongase en contacto con Correos Express.');?>";
+    var mostrarUrl = "<?php echo __('URLs de los webs services(REST Y SOAP).');?>";
+    */
+    var stepUser6 = "<?php echo __('Cantidad de bultos predeterminados para cada envío, este valor podrá ser modificado más adelante en el detalle del pedido.');?>";
+    var stepUser7 = "<?php echo __('A elegir entre: Adhesiva, medio folio y térmica.');?>";
+
+    var stepUser8 = "<?php echo __('La información de los clientes de la etiqueta se obtiene de una de las dos direcciones de una orden');?>";
+
+    var stepUser9 = "<?php echo __('Seleccione el método de pago contra reembolso en caso de que se utilice esta modalidad en caso contrario seleccione Ninguno.');?>";
+    var stepUserLog = "<?php echo __('Si selecciona esta opción, se generarán los archivos de log del cron y se añadirá una pestaña de soporte');?>";
+    var stepUser10 = "<?php echo __('Esta opción permite activar el enlace de seguimiento, en la sección pedidos.');?>";
+    var obserEtiqueta = "<?php echo __('Esta opción permite añadir observaciones del cliente a la etiqueta.');?>";
+    var trackNumber = "<?php echo __('Esta opción permite añadir número de envío a la orden.');?>";
+    var stepUser11 = "<?php echo __('Si marca esta opción, las etiquetas se generarán con un remitente alternativo.');?>";
+    var stepUser12 = "<?php echo __('Cantidad de kilos predeterminados para cada envío, este valor podrá ser modificado más adelante en el detalle del pedido.');?>";
+    var stepUser13 = "<?php echo __('Botón para cambiar el logo en las etiquetas.');?>";
+    var stepUser14 = "<?php echo __('Datos a mostrar en la etiqueta.');?>";
+    var guardarDatosCliente = "<?php echo __('Botón para guardar nuestra configuración de usuario.');?>";
+
+    // Configuración Código cliente
+    var customer_code = "<?php echo __('Código entregado por Correos Express, consta de 9 dígitos. En caso de no disponer de él, pongase en contacto con Correos Express.');?>";
+    var saved_codes = "<?php echo __('Tabla en la que se nos muestran nuestros codigos de cliente, asi como los botones de borrado y modificación del mismo.');?>";
+    var guardar_cod_cliente = "<?php echo __('Desde aquí guardaremos nuestro código de cliente.');?>";
+
+    // Configuración de Remitente
+    var MXPS_DEFAULTSEND = "<?php echo __('Selección del remitente por defecto, irá asociado a la tienda en la que se encuentre y solo a ella. Este será el remitente que utilizará la tienda en los pedidos. Es un campo obligatorio.');?>";
+    var literalGuardarRemitenteDefecto = "<?php echo __('Botón mediante el que guardaremos nuestro remitente por defecto.');?>";
+    var div_codigo_cliente = "<?php echo __('Código de cliente que se asociará al remitente, no se puede cambiar de código asociado una vez se genere el remitente.');?>";
+    var introHoraDesde = "<?php echo __('Hora desde la que está disponible para la recogida.');?>";
+    var introHoraHasta = "<?php echo __('Hora hasta la que está disponible para la recogida.');?>";
+    var bloqueHoraDesdeHasta = "<?php echo __('Intervalo de horas para la recogida.');?>";
+    var guardarRemitente = "<?php echo __('Botón desde el que guardaremos el remitente creado.');?>";
+    var cancelar = "<?php echo __('Reiniciaremos el formulario.');?>";
+    var tableSavedSenders = "<?php echo __('Tabla que muestra todos los remitentes creados para la tienda en curso.');?>";
+    var datosRemitente =  "<?php echo __('Datos personales del remitente.');?>";
+
+    // Configuración de Productos
+    var panel_productos_cex = "<?php echo __('Listado de los productos que tiene a su disposición Correos Express. Marque únicamente los productos pactados con su comercial. Si se selecciona algún producto no contratado, se producirá un error al grabar el envío.');?>";
+    var literalGuardarProductosCex = "<?php echo __('Guardaremos los productos seleccionados, para posteriormente asignarlos a los transportistas.');?>";
+    var refEtiquetas = "<?php echo __('Referencias para las ordenes');?>";
+    // Relación transportistas productos
+    var panel_relacion_trans = "<?php echo __('En este formulario se relacionan los transportistas con los productos de Correos Express contratados.');?>";
+    var nombreProductos = "<?php echo __('Listado de productos seleccionados en la sección Productos Cex.');?>";
+    var nombreCarriers = "<?php echo __('Los transportistas/métodos de envío son aquellos configurados en la sección Tranporte de Magento. Se debería crear un transportista para cada producto contratado, ya que un transportista solo puede tener asignado un producto.');?>";
+    var nombreCarriersProductos = "<?php echo __('La relación entre ambos es 1:1, es decir un transportista esta asociado a un producto. Si se cambia el producto asociado a un transportista, se modificará todo el histórico de pedidos relacionado con él.');?>";
+    var guardarTransportistas = "<?php echo __('Guardaremos la configuración de transportistas para utilizarlos en nuestra tienda.');?>";
+
+    // Configuración CRON
+    var introPanelCron = "<?php echo __('En este formulario nos encargamos de configurar el CRON, el cual se encarga de modificar el estado del pedido automáticamente cuando se cumplan las condiciones dadas.');?>";
+    var datosCron = "<?php echo __('Seleccione el tipo de ejecución del cambio de estados');?>";
+    var MXPS_SAVEDSTATUS = "<?php echo __('Al activar esta opción, el pedido cambiará al estado seleccionado tras la grabación y obtención del número de envío.');?>";
+    var MXPS_TRACKINGCEX = "<?php echo __('Al activar el tracking automático de pedidos, la tienda consultará de forma periódica en que estado se encuentra el pedido y lo mostrará en la tabla de histórico en la administración de las ordenes.');?>";
+    var MXPS_CHANGESTATUS_SPAN = "<?php echo __('Si se activa, actualizará el estado de la orden en función del CRON y la selección de estados realizada.');?>";
+    var literalGuardarDatosCron = "<?php echo __('Guardaremos la configuración de nuestro Cron.');?>";
+
+    //Configuración Edición Código cliente
+    var customer_code_modal = "<?php echo __('Codigo entregado por Correos Express, consta de 9 dígitos. En caso de no disponer de él, pongase en contacto con Correos Express.');?>";
+    var guardar_cod_cliente_modal = "<?php echo __('Desde aquí guardaremos nuestro código de cliente.');?>";
+    var cerrar_cod_cliente_modal = "<?php echo __('Desde aquí cerraremos la edición de nuestro código de cliente, sin guardar.');?>";
+    var generarArchivoCronLog = "<?php echo __('Descargar el log de la última ejecución del CRON.'); ?>";
+    var generarArchivoPeticionCron = "<?php echo __('Descargar el log de la última petición al WS.'); ?>";
+    var generarArchivoRespuestaCron = "<?php echo __('Descargar el log de la última respuesta del WS.'); ?>";
+
+    //Configuración Edición Remitente
+    var remitente_codigo_cliente_modal = "<?php echo __('Código de cliente que se asociará; al remitente, no se puede cambiar de código asociado una vez se genere el remitente.');?>";
+    var EdicionHoraDesde = "<?php echo __('Hora desde la que está disponible para la recogida.');?>";
+    var EdicionHoraHasta = "<?php echo __('Hora hasta la que está disponible para la recogida.');?>";
+    var EdicionHoras = "<?php echo __('Debe haber un mínimo de dos horas de diferencia.');?>";
+    var guardar_modal_remitente ="<?php echo __('Botón desde el que guardaremos los cambios del remitente.');?>";
+    var cerrar_modal_remitente = "<?php echo __('Cerrar el formulario, sin guardar.');?>";
+
+    var usuario = "<?php echo __('Usuario:');?>";
+    var cuenta_conectada = "<?php echo __('Cuenta Conectada');?>";
+    var confirma_el_borrado = "<?php echo __('Confirma el borrado');?>";
+    var confirma_el_borrado2 = "<?php echo __('¿Estas seguro de borrar el código de cliente y sus remitentes asociados?');?>";
+    var confirma_el_borrado_remitente = "<?php echo __('¿Estas seguro de borrar el remitente?');?>";
+
+    var titleErrorActualizarCliente = "<?php echo __('Código de cliente invalido');?>";
+    var textErrorActualizarCliente = "<?php echo __('El código de cliente debe tener 9 digitos');?>";
+
+    var titleErrorTamañoImagen = "<?php echo __('Imagen logo demasiado grande');?>";
+    var textErrorTamañoImagen = "<?php echo __('El logo es demasiado grande, debe ser menor de 400 kB');?>";
+
+    //Validación productos y transportistas
+
+
+    var guardarProd = "<?php echo __('Guardar Producto');?>";
+    var guardarTransport = "<?php echo __('Guardar Transportistas');?>";
+    var unTransport = "<?php echo __('Debe seleccionar algún producto para configurar los transportistas');?>";
+    var unProducto = "<?php echo __('Debe seleccionar algún producto para continuar');?>";
+
+    // Seccion Soporte
+    var panel_soporte = "<?php echo __('En esta sección se pueden descargar los informes para el soporte con Correos Express.');?>";
+    var buttonHistorico = "<?php echo __('Descarga los últimos registros de la base de datos histórico, saveships y migrations con la información de las últimas peticiones y respuestas del WS.');?>";
+</script>

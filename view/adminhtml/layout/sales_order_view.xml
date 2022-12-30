@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+        <css src="CorreosExpress_RegistroDeEnvios::css/bootstrap.min.css"       rel="stylesheet"  type="text/css"/>
+        <css src="CorreosExpress_RegistroDeEnvios::css/gijgo.min.css"           rel="stylesheet"  type="text/css"/>
+        <css src="CorreosExpress_RegistroDeEnvios::css/introjs.css"             rel="stylesheet"  type="text/css"/>
+        <css src="CorreosExpress_RegistroDeEnvios::css/fontawesome.min.css"     rel="stylesheet"  type="text/css"/>
+        <css src="CorreosExpress_RegistroDeEnvios::css/pnotify.custom.min.css"  rel="stylesheet"  type="text/css"/>
+        <css src="CorreosExpress_RegistroDeEnvios::css/pnotify.buttons.css"     rel="stylesheet"  type="text/css"/>
+        <css src="CorreosExpress_RegistroDeEnvios::css/correosexpress.css"      rel="stylesheet"  type="text/css"/>
+        <css src="CorreosExpress_RegistroDeEnvios::css/correosexpress-menu.css" rel="stylesheet"  type="text/css"/>
+    </head>
+   <body>
+       <referenceContainer name="left">
+           <referenceBlock name="sales_order_tabs">
+               <action method="addTab">
+                   <argument name="name" xsi:type="string">custom_tab</argument>
+                   <argument name="block" xsi:type="string">CorreosExpress\RegistroDeEnvios\Block\Adminhtml\Order\View\Tab\CexCustomTab</argument>
+               </action>
+           </referenceBlock>                      
+       </referenceContainer>       
+   </body>
+</page>

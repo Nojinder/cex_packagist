@@ -1,0 +1,981 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    
+  <!--    Tabla cMigrations    -->
+  <table name="correosexpress_registrodeenvios_cexmigrations" 
+         resource="default" 
+         engine="innodb" 
+         comment="correosexpress_registrodeenvios_cexmigrations">
+
+    <column xsi:type="int" 
+            name="migration_id" 
+            padding="11" 
+            unsigned="false" 
+            nullable="false" 
+            identity="true" 
+            comment="Id Migrations"/>
+
+    <column xsi:type="varchar" 
+            name="metodo_ejecutado" 
+            nullable="false" 
+            length="255" 
+            comment="Nombre de la migración"/>
+
+    <column xsi:type="timestamp" 
+            name="created_at"
+            nullable="false" 
+            default="CURRENT_TIMESTAMP" 
+            on_update="false"
+            comment="Fecha de Creación"/>  
+
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="migration_id"/>
+    </constraint>
+  </table>
+
+ <!--    Tabla customercodes    -->
+  <table name="correosexpress_registrodeenvios_cexcustomercodes" 
+         resource="default" 
+         engine="innodb" 
+         comment="correosexpress_registrodeenvios_cexcustomercodes">
+
+    <column xsi:type="int" 
+            name="customer_code_id"  
+            padding="10" 
+            unsigned="true" 
+            nullable="false" 
+            identity="true" 
+            comment="Customer code Id"/>
+
+    <column xsi:type="varchar" 
+            name="customer_code" 
+            nullable="false" 
+            length="30" 
+            comment="Customer Code"/> 
+
+    <column xsi:type="varchar" 
+            name="code_demand" 
+            nullable="false" 
+            length="50" 
+            comment="Code Demmand"/>
+
+    <column xsi:type="int" 
+            name="id_shop" 
+            nullable="false" 
+            padding="11" 
+            comment="Id Shop"/>
+
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="customer_code_id"/>
+    </constraint>
+    <index referenceId="CUSTOMER_CODE_INDEX" indexType="btree">
+        <column name="customer_code"/>
+    </index>
+  </table>
+
+  <!--    Tabla Customer options    -->
+  <table name="correosexpress_registrodeenvios_cexcustomeroptions" 
+         resource="default" 
+         engine="innodb" 
+         comment="correosexpress_registrodeenvios_cexcustomeroptions">
+
+    <column xsi:type="int" 
+            name="customer_options_id"  
+            padding="10" 
+            unsigned="true" 
+            nullable="false" 
+            identity="true" 
+            comment="Customer option Id"/>
+
+    <column xsi:type="varchar" 
+            name="clave" 
+            nullable="false" 
+            length="50" 
+            comment="Clave"/> 
+
+    <column xsi:type="varchar" 
+            name="valor" 
+            nullable="false" 
+            length="200" 
+            comment="Valor"/>   
+
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="customer_options_id"/>
+    </constraint>
+  </table>
+
+  <!--    Tabla Office Delivery    -->
+  <table name="correosexpress_registrodeenvios_cexofficedeliverycorreo" 
+         resource="default" 
+         engine="innodb" 
+         comment="correosexpress_registrodeenvios_cexofficedeliverycorreo">
+
+    <column xsi:type="int" 
+            name="officedeliverycorreo_id"  
+            padding="10" 
+            unsigned="true" 
+            nullable="false" 
+            identity="true" 
+            comment="officedeliverycorreo_id"/>
+
+    <column xsi:type="int" 
+            name="id_cart" 
+            nullable="false" 
+            padding="11" 
+            comment="id_cart"/> 
+
+    <column xsi:type="varchar" 
+            name="id_carrier" 
+            nullable="false" 
+            length="255" 
+            comment="id_carrier"/> 
+
+    <column xsi:type="int" 
+            name="id_customer" 
+            nullable="false" 
+            padding="11" 
+            comment="id_customer"/>  
+
+    <column xsi:type="varchar" 
+            name="codigo_oficina" 
+            nullable="false" 
+            length="50" 
+            comment="codigo_oficina"/>    
+
+    <column xsi:type="varchar" 
+            name="texto_oficina" 
+            nullable="false" 
+            length="255" 
+            comment="texto_oficina"/>   
+
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="officedeliverycorreo_id"/>
+    </constraint>
+  </table>
+
+  <!--    Tabla Envío Bultos    -->
+  <table name="correosexpress_registrodeenvios_cexenviobultos" 
+         resource="default" 
+         engine="innodb" 
+         comment="correosexpress_registrodeenvios_cexenviobultos">
+
+    <column xsi:type="int" 
+            name="enviobultos_id"  
+            padding="10" 
+            unsigned="true" 
+            nullable="false" 
+            identity="true" 
+            comment="enviobultos_id"/>
+
+    <column xsi:type="int" 
+            name="id_order" 
+            nullable="false" 
+            padding="11" 
+            comment="id_order"/> 
+
+    <column xsi:type="varchar" 
+            name="num_collect" 
+            nullable="false" 
+            length="255" 
+            comment="num_collect"/>  
+
+    <column xsi:type="varchar" 
+            name="num_ship" 
+            nullable="false" 
+            length="20" 
+            comment="num_ship"/>   
+
+    <column xsi:type="varchar" 
+            name="cod_unico_bulto" 
+            nullable="false" 
+            length="30" 
+            comment="cod_unico_bulto"/> 
+
+    <column xsi:type="int" 
+            name="id_bulto" 
+            nullable="false" 
+            padding="11" 
+            comment="id_bulto"/>
+
+    <column xsi:type="date" 
+            name="fecha"  
+            nullable="false" 
+            comment="Fecha de Creación"/>  
+
+    <column xsi:type="date" 
+            name="deleted_at" 
+            nullable="true" 
+            comment="deleted_at"/>  
+
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="enviobultos_id"/>
+    </constraint>
+  </table>
+
+  <!--    Tabla History   -->
+  <table name="correosexpress_registrodeenvios_cexhistory" 
+         resource="default" 
+         engine="innodb" 
+         comment="correosexpress_registrodeenvios_cexhistory">
+
+    <column xsi:type="int"
+            name="history_id"
+            padding="10"
+            unsigned="true"
+            nullable="false"
+            identity="true"
+            comment="history_id"/>
+
+    <column xsi:type="int"
+            name="id_order"
+            nullable="false"
+            padding="11"
+            comment="id_order"/>
+
+    <column xsi:type="varchar"
+            name="num_collect"
+            nullable="false"
+            length="15"
+            comment="num_collect"/>
+
+    <column xsi:type="varchar"
+            name="type"
+            nullable="false"
+            length="20"
+            comment="type"/>
+
+    <column xsi:type="varchar"
+            name="num_ship"
+            nullable="true"
+            length="20"
+            comment="num_ship"/>
+
+    <column xsi:type="varchar"
+            name="resultado"
+            nullable="false"
+            length="20"
+            comment="resultado"/>
+
+    <column xsi:type="varchar"
+            name="mensaje_retorno"
+            nullable="true"
+            length="255"
+            comment="mensaje_retorno"/>
+
+    <column xsi:type="int"
+            name="codigo_retorno"
+            nullable="false"
+            padding="11"
+            comment="codigo_retorno"/>
+
+    <column xsi:type="mediumtext"
+            name="envio_ws"
+            nullable="false"
+            comment="envio_ws"/>
+
+    <column xsi:type="mediumtext"
+            name="respuesta_ws"
+            nullable="false"
+            comment="respuesta_ws"/>
+
+    <column xsi:type="date"
+            name="fecha"
+            nullable="false"
+            comment="Fecha de Creación"/>
+
+    <column xsi:type="varchar"
+            name="fecha_recogida"
+            nullable="true"
+            length="20"
+            comment="fecha_recogida"/>
+
+    <column xsi:type="varchar"
+            name="hora_recogida_desde"
+            nullable="true"
+            length="20"
+            comment="hora_recogida_desde"/>
+
+    <column xsi:type="varchar"
+            name="hora_recogida_hasta"
+            nullable="true"
+            length="20"
+            comment="hora_recogida_hasta"/>
+
+    <column xsi:type="int"
+            name="id_bc_ws"
+            nullable="true"
+            padding="11"
+            comment="id_bc_ws"/>
+
+    <column xsi:type="varchar"
+            name="mode_ship_name_ws"
+            nullable="true"
+            length="50"
+            comment="mode_ship_name_ws"/>  
+
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="history_id"/>
+    </constraint>
+  </table>
+
+  <!--    Tabla Saved Mode Ships    -->
+  <table name="correosexpress_registrodeenvios_cexsavedmodeships"
+         resource="default"
+         engine="innodb"
+         comment="correosexpress_registrodeenvios_cexsavedmodeships">
+
+    <column xsi:type="int"
+            name="modeships_id"
+            padding="10"
+            unsigned="true"
+            nullable="false"
+            identity="true"
+            comment="modeships_id"/>
+
+   <column xsi:type="varchar"
+            name="name"
+            nullable="false"
+            length="50"
+            comment="name"/>
+
+    <column xsi:type="varchar" 
+            name="id_bc" 
+            nullable="false" 
+            length="5" 
+            comment="id_bc"/>   
+
+    <column xsi:type="varchar" 
+            name="id_carrier" 
+            nullable="false" 
+            length="255" 
+            comment="id_carrier"/> 
+
+    <column xsi:type="int" 
+            name="checked" 
+            nullable="false" 
+            padding="11" 
+            comment="checked"/> 
+
+    <column xsi:type="int" 
+            name="id_customer_code"
+            nullable="true"
+            padding="11" 
+            comment="id_customer_code"/>   
+
+    <column xsi:type="varchar" 
+            name="short_name" 
+            nullable="true"
+            length="30" 
+            comment="id_carrier"/> 
+
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="modeships_id"/>
+    </constraint>
+  </table>
+
+  <!--    Tabla Saved Senders    -->
+  <table name="correosexpress_registrodeenvios_cexsavedsenders" 
+         resource="default" 
+         engine="innodb" 
+         comment="correosexpress_registrodeenvios_cexsavedsenders">
+
+    <column xsi:type="int" 
+            name="sender_id"  
+            padding="10" 
+            unsigned="true" 
+            nullable="false" 
+            identity="true" 
+            comment="sender_id"/>
+
+   <column xsi:type="varchar" 
+            name="name" 
+            nullable="false" 
+            length="50" 
+            comment="name"/>  
+
+    <column xsi:type="varchar" 
+            name="address" 
+            nullable="false" 
+            length="90" 
+            comment="address"/>   
+
+    <column xsi:type="varchar" 
+            name="postcode" 
+            nullable="false" 
+            length="11" 
+            comment="postcode"/>    
+
+    <column xsi:type="varchar" 
+            name="city" 
+            nullable="false" 
+            length="40"
+            comment="city"/>    
+
+    <column xsi:type="varchar" 
+            name="contact" 
+            nullable="false" 
+            length="30" 
+            comment="contact"/>    
+
+    <column xsi:type="varchar" 
+            name="phone" 
+            nullable="false" 
+            length="14" 
+            comment="phone"/> 
+
+    <column xsi:type="int" 
+            name="from_hour" 
+            nullable="false" 
+            padding="11" 
+            comment="from_hour"/> 
+
+    <column xsi:type="int" 
+            name="from_minute" 
+            nullable="false" 
+            padding="11" 
+            comment="from_minute"/> 
+
+    <column xsi:type="int" 
+            name="to_hour" 
+            nullable="false" 
+            padding="11" 
+            comment="to_hour"/> 
+
+    <column xsi:type="int" 
+            name="to_minute" 
+            nullable="false" 
+            padding="11" 
+            comment="from_minute"/>    
+
+    <column xsi:type="varchar" 
+            name="iso_code_pais" 
+            nullable="false" 
+            length="4" 
+            comment="iso_code_pais"/>    
+
+    <column xsi:type="varchar" 
+            name="email" 
+            nullable="false" 
+            length="50" 
+            comment="email"/> 
+
+    <column xsi:type="int" 
+            name="id_cod_cliente" 
+            nullable="false" 
+            padding="11" 
+            comment="id_cod_cliente"/> 
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="sender_id"/>
+    </constraint>
+  </table>  
+
+  <!--    Tabla Saved Ships    -->
+  <table name="correosexpress_registrodeenvios_cexsavedships" 
+         resource="default" 
+         engine="innodb" 
+         comment="correosexpress_registrodeenvios_cexsavedships">
+
+    <column xsi:type="int" 
+            name="ship_id"  
+            padding="10" 
+            unsigned="true" 
+            nullable="false" 
+            identity="true" 
+            comment="ship_id"/>
+
+    <column xsi:type="date" 
+            name="date" 
+            nullable="false"
+            comment="Fecha de Creación"/> 
+
+   <column xsi:type="varchar" 
+            name="num_collect" 
+            nullable="false" 
+            length="50" 
+            comment="num_collect"/>  
+
+    <column xsi:type="varchar" 
+            name="num_ship" 
+            nullable="false" 
+            length="20" 
+            comment="num_ship"/>   
+
+    <column xsi:type="varchar" 
+            name="collect_from" 
+            nullable="false" 
+            length="50" 
+            comment="collect_from"/>    
+
+    <column xsi:type="varchar" 
+            name="postal_code" 
+            nullable="false" 
+            length="10" 
+            comment="postal_code"/> 
+
+    <column xsi:type="int" 
+            name="id_order" 
+            nullable="false" 
+            padding="11" 
+            comment="id_order"/> 
+
+    <column xsi:type="int" 
+            name="id_mode" 
+            nullable="true"
+            padding="11" 
+            comment="id_mode"/> 
+
+    <column xsi:type="int" 
+            name="id_sender" 
+            nullable="false" 
+            padding="11" 
+            comment="id_sender"/>  
+
+    <column xsi:type="varchar" 
+            name="type" 
+            nullable="false" 
+            length="20" 
+            comment="type"/>    
+
+    <column xsi:type="decimal" 
+            name="kg" 
+            nullable="false" 
+            scale="3"
+            precision="10"
+            comment="kg"/>
+
+    <column xsi:type="int" 
+            name="package" 
+            nullable="false" 
+            padding="11" 
+            comment="package"/>     
+
+    <column xsi:type="decimal" 
+            name="payback_val" 
+            nullable="false" 
+            scale="3"
+            precision="10"
+            comment="payback_val"/>
+
+    <column xsi:type="decimal" 
+            name="insured_value" 
+            nullable="false" 
+            scale="3"
+            precision="10"
+            comment="insured_value"/>
+
+    <column xsi:type="int" 
+            name="id_bc" 
+            nullable="false" 
+            padding="11" 
+            comment="id_bc"/>
+
+    <column xsi:type="varchar" 
+            name="mode_ship_name" 
+            nullable="false" 
+            length="50" 
+            comment="mode_ship_name"/>
+
+    <column xsi:type="varchar" 
+            name="status" 
+            nullable="false" 
+            length="20" 
+            comment="status"/>
+
+    <column xsi:type="int" 
+            name="id_ship_expired" 
+            nullable="false" 
+            padding="11" 
+            comment="id_ship_expired"/>
+
+    <column xsi:type="int" 
+            name="id_group" 
+            nullable="false" 
+            padding="11" 
+            comment="id_group"/>
+
+    <column xsi:type="varchar" 
+            name="note_collect" 
+            nullable="false" 
+            length="255" 
+            comment="note_collect"/>
+
+    <column xsi:type="varchar" 
+            name="note_deliver" 
+            nullable="false" 
+            length="255" 
+            comment="note_deliver"/>
+
+    <column xsi:type="varchar" 
+            name="iso_code" 
+            nullable="false" 
+            length="10" 
+            comment="iso_code"/>
+
+    <column xsi:type="int" 
+            name="devolution" 
+            nullable="false" 
+            padding="11" 
+            comment="devolution"/>
+
+    <column xsi:type="int" 
+            name="deliver_sat" 
+            nullable="false" 
+            padding="11" 
+            comment="deliver_sat"/>
+
+    <column xsi:type="int" 
+            name="mail_label" 
+            nullable="false" 
+            padding="11" 
+            comment="mail_label"/>
+
+    <column xsi:type="varchar" 
+            name="desc_ref_1" 
+            nullable="false" 
+            length="50" 
+            comment="desc_ref_1"/>
+
+    <column xsi:type="varchar" 
+            name="desc_ref_2" 
+            nullable="false" 
+            length="50" 
+            comment="desc_ref_2"/>
+
+    <column xsi:type="varchar" 
+            name="from_hour" 
+            nullable="false" 
+            length="2" 
+            comment="from_hour"/>
+
+    <column xsi:type="varchar" 
+            name="from_minute" 
+            nullable="false" 
+            length="2" 
+            comment="from_minute"/>
+
+    <column xsi:type="varchar" 
+            name="to_hour" 
+            nullable="false" 
+            length="2" 
+            comment="to_hour"/>
+
+    <column xsi:type="varchar" 
+            name="to_minute" 
+            nullable="false" 
+            length="2" 
+            comment="to_minute"/>
+
+    <column xsi:type="varchar" 
+            name="sender_name" 
+            nullable="false" 
+            length="50" 
+            comment="sender_name"/>
+
+    <column xsi:type="varchar" 
+            name="sender_contact" 
+            nullable="false" 
+            length="50" 
+            comment="sender_contact"/>
+
+    <column xsi:type="varchar" 
+            name="sender_address" 
+            nullable="false" 
+            length="120" 
+            comment="sender_address"/>
+
+    <column xsi:type="varchar" 
+            name="sender_postcode" 
+            nullable="false" 
+            length="11" 
+            comment="sender_postcode"/>
+
+    <column xsi:type="varchar" 
+            name="sender_city" 
+            nullable="false" 
+            length="50" 
+            comment="sender_city"/>
+
+    <column xsi:type="varchar" 
+            name="sender_phone" 
+            nullable="false" 
+            length="50" 
+            comment="sender_phone"/>
+
+    <column xsi:type="varchar" 
+            name="sender_country" 
+            nullable="false" 
+            length="25" 
+            comment="sender_country"/>
+
+    <column xsi:type="varchar" 
+            name="sender_email" 
+            nullable="false" 
+            length="50" 
+            comment="sender_email"/>
+
+    <column xsi:type="varchar" 
+            name="receiver_name" 
+            nullable="false" 
+            length="50" 
+            comment="receiver_name"/>
+
+    <column xsi:type="varchar" 
+            name="receiver_contact" 
+            nullable="false" 
+            length="50" 
+            comment="receiver_contact"/>
+
+    <column xsi:type="varchar" 
+            name="receiver_address" 
+            nullable="false" 
+            length="120" 
+            comment="receiver_address"/>
+
+    <column xsi:type="varchar" 
+            name="receiver_postcode" 
+            nullable="false" 
+            length="11" 
+            comment="receiver_postcode"/>
+
+    <column xsi:type="varchar" 
+            name="receiver_city" 
+            nullable="false" 
+            length="50" 
+            comment="receiver_city"/>
+
+    <column xsi:type="varchar" 
+            name="receiver_phone" 
+            nullable="false" 
+            length="50" 
+            comment="receiver_phone"/>
+
+    <column xsi:type="varchar" 
+            name="receiver_phone2" 
+            nullable="false" 
+            length="50" 
+            comment="receiver_phone2"/>
+
+    <column xsi:type="varchar" 
+            name="receiver_email" 
+            nullable="false" 
+            length="50" 
+            comment="receiver_email"/>
+
+    <column xsi:type="varchar" 
+            name="receiver_country" 
+            nullable="false" 
+            length="25" 
+            comment="receiver_country"/>
+
+    <column xsi:type="varchar" 
+            name="codigo_cliente" 
+            nullable="false" 
+            length="50" 
+            comment="codigo_cliente"/>
+
+    <column xsi:type="text" 
+            name="oficina_entrega" 
+            nullable="false" 
+            comment="oficina_entrega"/>
+
+    <column xsi:type="timestamp" 
+            name="created_at" 
+            default="CURRENT_TIMESTAMP" 
+            on_update="false" 
+            comment="Fecha de Creación"/>
+            
+    <column xsi:type="timestamp" 
+            name="updated_at"  
+            default="CURRENT_TIMESTAMP" 
+            on_update="true"
+            comment="Fecha de Actualización"/>
+
+    <column xsi:type="int" 
+            name="ws_estado_tracking" 
+            nullable="false" 
+            padding="11" 
+            comment="ws_estado_tracking"/>
+
+    <column xsi:type="date" 
+            name="deleted_at"
+            nullable="true"
+            comment="Fecha de Borrado"/>  
+
+    <column xsi:type="int" 
+            name="modificacion_automatica" 
+            nullable="false" 
+            padding="11" 
+            comment="modificacion_automatica"/>
+
+    <column xsi:type="varchar" 
+            name="at_portugal" 
+            nullable="true" 
+            length="50" 
+            comment="at_portugal"/>
+
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="ship_id"/>
+    </constraint>
+  </table> 
+
+  <!--    Tabla Envíos Cron    -->
+  <table name="correosexpress_registrodeenvios_cexenvioscron"
+         resource="default"
+         engine="innodb"
+         comment="correosexpress_registrodeenvios_cexenvioscron">
+
+    <column xsi:type="int"
+            name="id_envio_cron"
+            padding="11"
+            unsigned="true"
+            nullable="false"
+            identity="true"
+            comment="id_envio_cron"/>
+
+   <column xsi:type="text"
+            name="peticion_envio"
+            nullable="false"
+            comment="peticion_envio"/>
+
+   <column xsi:type="text"
+            name="respuesta_envio"
+            nullable="true"
+            comment="respuesta_envio"/>
+
+    <column xsi:type="int" 
+            name="codError" 
+            nullable="true" 
+            padding="11" 
+            comment="codError"/> 
+
+    <column xsi:type="varchar" 
+            name="descError"
+            nullable="true"
+            length="80"
+            comment="descError"/>   
+
+    <column xsi:type="varchar" 
+            name="codCliente" 
+            nullable="true"
+            length="30" 
+            comment="codCliente"/> 
+
+    <column xsi:type="timestamp" 
+            name="created_at" 
+            default="CURRENT_TIMESTAMP"
+            nullable="false" 
+            on_update="false" 
+            comment="Fecha de Creación"/>
+            
+    <column xsi:type="timestamp" 
+            name="updated_at"  
+            default="NULL"
+            nullable="true" 
+            on_update="true"
+            comment="Fecha de Actualización"/>
+
+    <column xsi:type="timestamp" 
+            name="deleted_at" 
+            default="NULL"
+            nullable="true"
+            on_update="false" 
+            comment="Fecha de Borrado"/>
+
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id_envio_cron"/>
+    </constraint>
+  </table> 
+
+  <!--    Tabla Envíos Cron    -->
+  <table name="correosexpress_registrodeenvios_cexrespuestacron"
+         resource="default"
+         engine="innodb"
+         comment="correosexpress_registrodeenvios_cexrespuestacron">
+
+    <column xsi:type="int"
+            name="id_respuesta_cron"
+            padding="11"
+            unsigned="true"
+            nullable="false"
+            identity="true"
+            comment="id_respuesta_cron"/>
+
+   <column xsi:type="text"
+            name="nEnvioCliente"
+            nullable="false"
+            comment="nEnvioCliente"/>
+
+   <column xsi:type="text"
+            name="referencia"
+            nullable="false"
+            comment="referencia"/>
+
+    <column xsi:type="int" 
+            name="codigoIncidencia" 
+            nullable="true" 
+            padding="11" 
+            comment="codigoIncidencia"/> 
+
+    <column xsi:type="varchar" 
+            name="descripcionIncidencia"
+            nullable="true"
+            length="80"
+            comment="descripcionIncidencia"/> 
+
+    <column xsi:type="int" 
+            name="codigoEstado" 
+            nullable="true" 
+            padding="11" 
+            comment="codigoEstado"/> 
+
+    <column xsi:type="varchar" 
+            name="descripcionEstado"
+            nullable="true"
+            length="80"
+            comment="descripcionEstado"/>   
+
+    <column xsi:type="varchar" 
+            name="codCliente" 
+            nullable="true"
+            length="30" 
+            comment="codCliente"/>  
+
+    <column xsi:type="int" 
+            name="estadoAntiguo" 
+            nullable="true" 
+            padding="11" 
+            comment="estadoAntiguo"/> 
+
+    <column xsi:type="timestamp" 
+            name="created_at" 
+            default="CURRENT_TIMESTAMP"
+            nullable="false" 
+            on_update="false" 
+            comment="Fecha de Creación"/>
+            
+    <column xsi:type="timestamp" 
+            name="updated_at"  
+            default="NULL"
+            nullable="true" 
+            on_update="true"
+            comment="Fecha de Actualización"/>
+
+    <column xsi:type="timestamp" 
+            name="deleted_at" 
+            default="NULL"
+            nullable="true"
+            on_update="false" 
+            comment="Fecha de Borrado"/> 
+
+    <column xsi:type="int"
+            name="id_envio_cron"
+            padding="11"
+            unsigned="true"
+            nullable="false"
+            comment="id_envio_cron"/>
+
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id_respuesta_cron"/>
+    </constraint>   
+  </table> 
+</schema>

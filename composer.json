@@ -1,0 +1,26 @@
+  {
+    "name": "correosexpress/registrodeenvios",
+    "version": "4.4.0",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://github.com/RutaDelRepositorio"
+        }
+    ],
+    "description": "Module for recording shipments and printing CorreosExpress labels",
+    "homepage": "https://github.com/RutaDelRepositorio",
+    "require": {
+        "php": "~7.4.0||~8.0.0||~8.1.0"
+    },
+    "type": "magento2-module",
+    "license": [
+      "OSL-3.0",
+      "AFL-3.0"
+    ],
+    "autoload": {
+      "files": [ "registration.php" ],
+      "psr-4": {
+        "CorreosExpress\\RegistroDeEnvios\\": ""
+      }
+    }
+  }
